@@ -44,6 +44,7 @@
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(300, 29);
             this.usernameTextBox.TabIndex = 0;
+            this.usernameTextBox.Text = "alex";
             this.usernameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Username_PreviewInput);
             // 
             // passwordTextBox
@@ -54,6 +55,7 @@
             this.passwordTextBox.PasswordChar = '●';
             this.passwordTextBox.Size = new System.Drawing.Size(300, 29);
             this.passwordTextBox.TabIndex = 1;
+            this.passwordTextBox.Text = "qweqwe";
             this.passwordTextBox.UseSystemPasswordChar = true;
             this.passwordTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Password_PreviewInput);
             // 

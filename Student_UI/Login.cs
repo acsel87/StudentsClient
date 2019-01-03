@@ -47,18 +47,17 @@ namespace Student_UI
             if (validation.IsTextBoxValid(usernameTextBox.Text, passwordTextBox.Text, ref errorMessage))
             {
                 StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
-                StudentService.ResponseModelOfUserModelB45gH_Pky responseModel = new StudentService.ResponseModelOfUserModelB45gH_Pky();
-                responseModel = studentService.Login(usernameTextBox.Text, passwordTextBox.Text);
-
-                if (responseModel.IsSuccess)
+                StudentService.ResponseModelOfUserModelB45gH_Pky userResponseModel = studentService.Login(usernameTextBox.Text, passwordTextBox.Text);
+               
+                if (userResponseModel.IsSuccess)
                 {
-                    userModel = new UserModel() { Username = responseModel.Model.Username, AccessToken = responseModel.Model.AccessToken };
+                    userModel = new UserModel() { Username = userResponseModel.Model.Username, AccessToken = userResponseModel.Model.AccessToken };
                     isAuthenticated = true;
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show(responseModel.ErrorMessage);
+                    MessageBox.Show(userResponseModel.ErrorMessage);
                 }                
             }
             else

@@ -255,6 +255,30 @@ namespace Student_UI.StudentService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ResetPassword", ReplyAction="http://tempuri.org/IStudentService/ResetPasswordResponse")]
         System.Threading.Tasks.Task<string> ResetPasswordAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudents", ReplyAction="http://tempuri.org/IStudentService/GetStudentsResponse")]
+        string GetStudents();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudents", ReplyAction="http://tempuri.org/IStudentService/GetStudentsResponse")]
+        System.Threading.Tasks.Task<string> GetStudentsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetTeachers", ReplyAction="http://tempuri.org/IStudentService/GetTeachersResponse")]
+        string GetTeachers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetTeachers", ReplyAction="http://tempuri.org/IStudentService/GetTeachersResponse")]
+        System.Threading.Tasks.Task<string> GetTeachersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetGrades", ReplyAction="http://tempuri.org/IStudentService/GetGradesResponse")]
+        string GetGrades(int studentID, int teacherID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetGrades", ReplyAction="http://tempuri.org/IStudentService/GetGradesResponse")]
+        System.Threading.Tasks.Task<string> GetGradesAsync(int studentID, int teacherID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudentRating", ReplyAction="http://tempuri.org/IStudentService/GetStudentRatingResponse")]
+        string GetStudentRating(int studentID, int teacherID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudentRating", ReplyAction="http://tempuri.org/IStudentService/GetStudentRatingResponse")]
+        System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -314,6 +338,38 @@ namespace Student_UI.StudentService {
         
         public System.Threading.Tasks.Task<string> ResetPasswordAsync() {
             return base.Channel.ResetPasswordAsync();
+        }
+        
+        public string GetStudents() {
+            return base.Channel.GetStudents();
+        }
+        
+        public System.Threading.Tasks.Task<string> GetStudentsAsync() {
+            return base.Channel.GetStudentsAsync();
+        }
+        
+        public string GetTeachers() {
+            return base.Channel.GetTeachers();
+        }
+        
+        public System.Threading.Tasks.Task<string> GetTeachersAsync() {
+            return base.Channel.GetTeachersAsync();
+        }
+        
+        public string GetGrades(int studentID, int teacherID) {
+            return base.Channel.GetGrades(studentID, teacherID);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetGradesAsync(int studentID, int teacherID) {
+            return base.Channel.GetGradesAsync(studentID, teacherID);
+        }
+        
+        public string GetStudentRating(int studentID, int teacherID) {
+            return base.Channel.GetStudentRating(studentID, teacherID);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID) {
+            return base.Channel.GetStudentRatingAsync(studentID, teacherID);
         }
     }
 }

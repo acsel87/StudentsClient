@@ -37,21 +37,21 @@
             this.label3 = new System.Windows.Forms.Label();
             this.studentComboBox = new System.Windows.Forms.ComboBox();
             this.yearLabel = new System.Windows.Forms.Label();
-            this.classComboBox = new System.Windows.Forms.ComboBox();
+            this.teacherComboBox = new System.Windows.Forms.ComboBox();
             this.userLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.teacherLabel = new System.Windows.Forms.Label();
             this.ratingLabel = new System.Windows.Forms.Label();
             this.gradeDataGridView = new System.Windows.Forms.DataGridView();
-            this.Grade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addGradeButton = new System.Windows.Forms.Button();
             this.editGradeButton = new System.Windows.Forms.Button();
             this.rateButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.rateTextBox = new System.Windows.Forms.TextBox();
+            this.Grade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gradeDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(520, 41);
+            this.label2.Location = new System.Drawing.Point(530, 41);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 21);
@@ -93,6 +93,7 @@
             this.studentComboBox.Name = "studentComboBox";
             this.studentComboBox.Size = new System.Drawing.Size(365, 29);
             this.studentComboBox.TabIndex = 11;
+            this.studentComboBox.SelectedValueChanged += new System.EventHandler(this.StudentComboBox_SelectedValueChanged);
             // 
             // yearLabel
             // 
@@ -104,14 +105,15 @@
             this.yearLabel.TabIndex = 12;
             this.yearLabel.Text = "1st";
             // 
-            // classComboBox
+            // teacherComboBox
             // 
-            this.classComboBox.FormattingEnabled = true;
-            this.classComboBox.Location = new System.Drawing.Point(105, 90);
-            this.classComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.classComboBox.Name = "classComboBox";
-            this.classComboBox.Size = new System.Drawing.Size(237, 29);
-            this.classComboBox.TabIndex = 13;
+            this.teacherComboBox.FormattingEnabled = true;
+            this.teacherComboBox.Location = new System.Drawing.Point(105, 90);
+            this.teacherComboBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.teacherComboBox.Name = "teacherComboBox";
+            this.teacherComboBox.Size = new System.Drawing.Size(237, 29);
+            this.teacherComboBox.TabIndex = 13;
+            this.teacherComboBox.SelectedValueChanged += new System.EventHandler(this.TeacherComboBox_SelectedValueChanged);
             // 
             // userLabel
             // 
@@ -150,9 +152,9 @@
             this.teacherLabel.Location = new System.Drawing.Point(102, 169);
             this.teacherLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.teacherLabel.Name = "teacherLabel";
-            this.teacherLabel.Size = new System.Drawing.Size(75, 21);
+            this.teacherLabel.Size = new System.Drawing.Size(68, 21);
             this.teacherLabel.TabIndex = 18;
-            this.teacherLabel.Text = "Lara Croft";
+            this.teacherLabel.Text = "<name>";
             // 
             // ratingLabel
             // 
@@ -195,45 +197,6 @@
             this.gradeDataGridView.Size = new System.Drawing.Size(590, 292);
             this.gradeDataGridView.TabIndex = 20;
             // 
-            // Grade
-            // 
-            this.Grade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            this.Grade.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Grade.FillWeight = 114.2132F;
-            this.Grade.HeaderText = "Grade";
-            this.Grade.MaxInputLength = 2;
-            this.Grade.MinimumWidth = 50;
-            this.Grade.Name = "Grade";
-            this.Grade.ReadOnly = true;
-            this.Grade.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Grade.Width = 193;
-            // 
-            // Date
-            // 
-            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle2.Format = "d";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Date.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Date.FillWeight = 114.2132F;
-            this.Date.HeaderText = "Date";
-            this.Date.MinimumWidth = 100;
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Date.Width = 194;
-            // 
-            // Notes
-            // 
-            this.Notes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Notes.FillWeight = 71.5736F;
-            this.Notes.HeaderText = "Notes";
-            this.Notes.MinimumWidth = 200;
-            this.Notes.Name = "Notes";
-            this.Notes.ReadOnly = true;
-            this.Notes.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
             // addGradeButton
             // 
             this.addGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -265,6 +228,7 @@
             this.rateButton.TabIndex = 23;
             this.rateButton.Text = "Rate Teacher";
             this.rateButton.UseVisualStyleBackColor = true;
+            this.rateButton.Click += new System.EventHandler(this.RateButton_Click);
             // 
             // label6
             // 
@@ -289,6 +253,45 @@
             this.rateTextBox.Text = "0";
             this.rateTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // Grade
+            // 
+            this.Grade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            this.Grade.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Grade.FillWeight = 114.2132F;
+            this.Grade.HeaderText = "Grade";
+            this.Grade.MaxInputLength = 2;
+            this.Grade.MinimumWidth = 50;
+            this.Grade.Name = "Grade";
+            this.Grade.ReadOnly = true;
+            this.Grade.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Grade.Width = 193;
+            // 
+            // Date
+            // 
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle2.Format = "g";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Date.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Date.FillWeight = 114.2132F;
+            this.Date.HeaderText = "Date";
+            this.Date.MinimumWidth = 100;
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Date.Width = 194;
+            // 
+            // Notes
+            // 
+            this.Notes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Notes.FillWeight = 71.5736F;
+            this.Notes.HeaderText = "Notes";
+            this.Notes.MinimumWidth = 200;
+            this.Notes.Name = "Notes";
+            this.Notes.ReadOnly = true;
+            this.Notes.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 21F);
@@ -305,7 +308,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.userLabel);
-            this.Controls.Add(this.classComboBox);
+            this.Controls.Add(this.teacherComboBox);
             this.Controls.Add(this.yearLabel);
             this.Controls.Add(this.studentComboBox);
             this.Controls.Add(this.label3);
@@ -330,7 +333,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox studentComboBox;
         private System.Windows.Forms.Label yearLabel;
-        private System.Windows.Forms.ComboBox classComboBox;
+        private System.Windows.Forms.ComboBox teacherComboBox;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;

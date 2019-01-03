@@ -31,6 +31,30 @@
   <wsdl:message name="IStudentService_ResetPassword_OutputMessage">
     <wsdl:part name="parameters" element="tns:ResetPasswordResponse" />
   </wsdl:message>
+  <wsdl:message name="IStudentService_GetStudents_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudents" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetStudents_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetTeachers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeachers" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetTeachers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeachersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetGrades_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGrades" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetGrades_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGradesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetStudentRating_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentRating" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetStudentRating_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentRatingResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStudentService">
     <wsdl:operation name="CheckConnection">
       <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/CheckConnection" message="tns:IStudentService_CheckConnection_InputMessage" />
@@ -47,6 +71,22 @@
     <wsdl:operation name="ResetPassword">
       <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/ResetPassword" message="tns:IStudentService_ResetPassword_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/ResetPasswordResponse" message="tns:IStudentService_ResetPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudents">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/GetStudents" message="tns:IStudentService_GetStudents_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/GetStudentsResponse" message="tns:IStudentService_GetStudents_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeachers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/GetTeachers" message="tns:IStudentService_GetTeachers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/GetTeachersResponse" message="tns:IStudentService_GetTeachers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGrades">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/GetGrades" message="tns:IStudentService_GetGrades_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/GetGradesResponse" message="tns:IStudentService_GetGrades_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentRating">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/GetStudentRating" message="tns:IStudentService_GetStudentRating_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/GetStudentRatingResponse" message="tns:IStudentService_GetStudentRating_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStudentService" type="tns:IStudentService">
@@ -80,6 +120,42 @@
     </wsdl:operation>
     <wsdl:operation name="ResetPassword">
       <soap:operation soapAction="http://tempuri.org/IStudentService/ResetPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStudents">
+      <soap:operation soapAction="http://tempuri.org/IStudentService/GetStudents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeachers">
+      <soap:operation soapAction="http://tempuri.org/IStudentService/GetTeachers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGrades">
+      <soap:operation soapAction="http://tempuri.org/IStudentService/GetGrades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentRating">
+      <soap:operation soapAction="http://tempuri.org/IStudentService/GetStudentRating" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
