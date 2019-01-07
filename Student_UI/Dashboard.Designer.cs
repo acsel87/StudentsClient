@@ -44,14 +44,14 @@
             this.teacherLabel = new System.Windows.Forms.Label();
             this.ratingLabel = new System.Windows.Forms.Label();
             this.gradeDataGridView = new System.Windows.Forms.DataGridView();
+            this.Grade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addGradeButton = new System.Windows.Forms.Button();
             this.editGradeButton = new System.Windows.Forms.Button();
             this.rateButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.rateTextBox = new System.Windows.Forms.TextBox();
-            this.Grade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rateComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gradeDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,62 +197,6 @@
             this.gradeDataGridView.Size = new System.Drawing.Size(590, 292);
             this.gradeDataGridView.TabIndex = 20;
             // 
-            // addGradeButton
-            // 
-            this.addGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.addGradeButton.Location = new System.Drawing.Point(259, 462);
-            this.addGradeButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.addGradeButton.Name = "addGradeButton";
-            this.addGradeButton.Size = new System.Drawing.Size(114, 37);
-            this.addGradeButton.TabIndex = 21;
-            this.addGradeButton.Text = "Add Grade";
-            this.addGradeButton.UseVisualStyleBackColor = true;
-            // 
-            // editGradeButton
-            // 
-            this.editGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editGradeButton.Location = new System.Drawing.Point(735, 462);
-            this.editGradeButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.editGradeButton.Name = "editGradeButton";
-            this.editGradeButton.Size = new System.Drawing.Size(114, 37);
-            this.editGradeButton.TabIndex = 22;
-            this.editGradeButton.Text = "Edit Grade";
-            this.editGradeButton.UseVisualStyleBackColor = true;
-            // 
-            // rateButton
-            // 
-            this.rateButton.Location = new System.Drawing.Point(23, 251);
-            this.rateButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rateButton.Name = "rateButton";
-            this.rateButton.Size = new System.Drawing.Size(114, 37);
-            this.rateButton.TabIndex = 23;
-            this.rateButton.Text = "Rate Teacher";
-            this.rateButton.UseVisualStyleBackColor = true;
-            this.rateButton.Click += new System.EventHandler(this.RateButton_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Light", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(174, 255);
-            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 30);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "/ 7";
-            // 
-            // rateTextBox
-            // 
-            this.rateTextBox.Font = new System.Drawing.Font("Segoe UI Light", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rateTextBox.Location = new System.Drawing.Point(153, 252);
-            this.rateTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.rateTextBox.MaxLength = 1;
-            this.rateTextBox.Name = "rateTextBox";
-            this.rateTextBox.Size = new System.Drawing.Size(22, 36);
-            this.rateTextBox.TabIndex = 26;
-            this.rateTextBox.Text = "0";
-            this.rateTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // Grade
             // 
             this.Grade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -292,12 +236,78 @@
             this.Notes.ReadOnly = true;
             this.Notes.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
+            // addGradeButton
+            // 
+            this.addGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.addGradeButton.Location = new System.Drawing.Point(259, 462);
+            this.addGradeButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.addGradeButton.Name = "addGradeButton";
+            this.addGradeButton.Size = new System.Drawing.Size(114, 37);
+            this.addGradeButton.TabIndex = 21;
+            this.addGradeButton.Text = "Add Grade";
+            this.addGradeButton.UseVisualStyleBackColor = true;
+            // 
+            // editGradeButton
+            // 
+            this.editGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.editGradeButton.Location = new System.Drawing.Point(735, 462);
+            this.editGradeButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.editGradeButton.Name = "editGradeButton";
+            this.editGradeButton.Size = new System.Drawing.Size(114, 37);
+            this.editGradeButton.TabIndex = 22;
+            this.editGradeButton.Text = "Edit Grade";
+            this.editGradeButton.UseVisualStyleBackColor = true;
+            // 
+            // rateButton
+            // 
+            this.rateButton.Location = new System.Drawing.Point(23, 251);
+            this.rateButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rateButton.Name = "rateButton";
+            this.rateButton.Size = new System.Drawing.Size(114, 37);
+            this.rateButton.TabIndex = 23;
+            this.rateButton.Text = "Rate Teacher";
+            this.rateButton.UseVisualStyleBackColor = true;
+            this.rateButton.Click += new System.EventHandler(this.RateButton_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Light", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(196, 255);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 30);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "/ 7";
+            // 
+            // rateComboBox
+            // 
+            this.rateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rateComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.rateComboBox.Font = new System.Drawing.Font("Segoe UI Light", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rateComboBox.FormatString = "N0";
+            this.rateComboBox.FormattingEnabled = true;
+            this.rateComboBox.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"});
+            this.rateComboBox.Location = new System.Drawing.Point(145, 254);
+            this.rateComboBox.Name = "rateComboBox";
+            this.rateComboBox.Size = new System.Drawing.Size(45, 33);
+            this.rateComboBox.Sorted = true;
+            this.rateComboBox.TabIndex = 27;
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 601);
-            this.Controls.Add(this.rateTextBox);
+            this.Controls.Add(this.rateComboBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.rateButton);
             this.Controls.Add(this.editGradeButton);
@@ -321,6 +331,7 @@
             this.Name = "Dashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Student Dashboard";
+            this.Load += new System.EventHandler(this.Dashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gradeDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -344,10 +355,10 @@
         private System.Windows.Forms.Button editGradeButton;
         private System.Windows.Forms.Button rateButton;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox rateTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn Grade;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Notes;
+        private System.Windows.Forms.ComboBox rateComboBox;
     }
 }
 

@@ -26,7 +26,6 @@
     <MetadataFile FileName="StudentService.wsdl" MetadataType="Wsdl" ID="95a06215-9795-4ff8-a348-158dd25fe6aa" SourceId="1" SourceUrl="http://localhost/Student/StudentService.svc?wsdl" />
     <MetadataFile FileName="StudentService1.xsd" MetadataType="Schema" ID="d1193f92-2c87-4c52-99b5-f1a40cfa06dd" SourceId="1" SourceUrl="http://localhost/Student/StudentService.svc?xsd=xsd1" />
     <MetadataFile FileName="StudentService.disco" MetadataType="Disco" ID="1e643e36-b896-423f-9897-7516815a588c" SourceId="1" SourceUrl="http://localhost/Student/StudentService.svc?disco" />
-    <MetadataFile FileName="StudentService2.xsd" MetadataType="Schema" ID="9ce50523-261e-4f9d-b252-1e16033221d9" SourceId="1" SourceUrl="http://localhost/Student/StudentService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

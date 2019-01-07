@@ -18,38 +18,35 @@ namespace Student_UI
     {
         private StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
         private Validation validation = new Validation();
-        private static UserModel currentUser = new UserModel();
+        private Encryptor encryptor = new Encryptor();
+        public static UserModel currentUser = new UserModel();
 
         private StudentModel selectedStudent = new StudentModel();
         private TeacherModel selectedTeacher = new TeacherModel();
 
-        string errorMessage;
+        private string errorMessage = string.Empty;
 
         public Dashboard(UserModel userModel)
         {            
             InitializeComponent();
-            currentUser = userModel;            
+            currentUser = userModel;
+        }
+
+        private void Dashboard_Load(object sender, EventArgs e)
+        {
             CheckAuthentication();
             userLabel.Text = currentUser.Username;
             InitialBindings();
         }
 
-        public class ResponseModel<T>
-        {
-            public T Model { get; set; }
-            public bool IsSuccess { get; set; }
-            public string ErrorMessage { get; set; } = "";
-        }
-
-        public static ResponseModel<T> ResponseDeserializer<T>(string serializedResponse)
-        {
-            return JsonConvert.DeserializeObject<ResponseModel<T>>(serializedResponse);
-        }
+        
 
         private void InitialBindings()
         {
-            ResponseModel<List<StudentModel>> studentsResponseModel = ResponseDeserializer<List<StudentModel>>(studentService.GetStudents());
-            ResponseModel<List<TeacherModel>> teachersResponseModel = ResponseDeserializer<List<TeacherModel>>(studentService.GetTeachers());
+            ResponseModel<List<StudentModel>> studentsResponseModel = encryptor.ResponseDeserializer<List<StudentModel>>
+                (studentService.GetStudents(currentUser.AccessToken));
+            ResponseModel<List<TeacherModel>> teachersResponseModel = encryptor.ResponseDeserializer<List<TeacherModel>>
+                (studentService.GetTeachers(currentUser.AccessToken));
 
             studentComboBox.ValueMember = "StudentID";
             studentComboBox.DisplayMember = "StudentName";
@@ -59,36 +56,25 @@ namespace Student_UI
 
             gradeDataGridView.AutoGenerateColumns = false;
 
-            string errorMessage = string.Empty;
-
-            if (teachersResponseModel.IsSuccess)
+            if (teachersResponseModel.IsSuccess && studentsResponseModel.IsSuccess)
             {
                 teacherComboBox.DataSource = teachersResponseModel.Model;
-            }
-            else
-            {
-                errorMessage += teachersResponseModel.ErrorMessage;
-            }
-
-            if (studentsResponseModel.IsSuccess)
-            {  
                 studentComboBox.DataSource = studentsResponseModel.Model;
             }
             else
             {
+                errorMessage += teachersResponseModel.ErrorMessage + "\n";
                 errorMessage += studentsResponseModel.ErrorMessage;
             }
 
             if (!string.IsNullOrEmpty(errorMessage))
             {
-                MessageBox.Show(errorMessage);
+                LogOut();
             }
         }
 
         private void StudentComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            errorMessage = string.Empty;
-
             if (studentComboBox.SelectedValue != null)
             {
                 selectedStudent = studentComboBox.SelectedItem as StudentModel;
@@ -98,13 +84,12 @@ namespace Student_UI
             if (!string.IsNullOrEmpty(errorMessage))
             {
                 MessageBox.Show(errorMessage);
+                errorMessage = string.Empty;
             }
         }
 
         private void TeacherComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            errorMessage = string.Empty;
-
             if (teacherComboBox.SelectedValue != null)
             {
                 selectedTeacher = teacherComboBox.SelectedItem as TeacherModel;
@@ -114,6 +99,7 @@ namespace Student_UI
             if (!string.IsNullOrEmpty(errorMessage))
             {
                 MessageBox.Show(errorMessage);
+                errorMessage = string.Empty;
             }
         }
 
@@ -141,7 +127,8 @@ namespace Student_UI
 
         private void RefreshGrades()
         {
-            ResponseModel<List<GradeModel>> gradesResponseModel = ResponseDeserializer<List<GradeModel>>(studentService.GetGrades(selectedStudent.StudentID, selectedTeacher.TeacherID));
+            ResponseModel<List<GradeModel>> gradesResponseModel = encryptor.ResponseDeserializer<List<GradeModel>>
+                (studentService.GetGrades(selectedStudent.StudentID, selectedTeacher.TeacherID, currentUser.AccessToken));
 
             if (gradesResponseModel.IsSuccess)
             {
@@ -153,26 +140,55 @@ namespace Student_UI
             else
             {
                 errorMessage += gradesResponseModel.ErrorMessage;
+                CheckResponseError(gradesResponseModel.ErrorAction);                
             }
         }
 
         private void GetStudentRating()
         {
-            ResponseModel<int> ratingResponseModel = ResponseDeserializer<int>(studentService.GetStudentRating(selectedStudent.StudentID, selectedTeacher.TeacherID));
+            ResponseModel<int> ratingResponseModel = encryptor.ResponseDeserializer<int>(studentService.GetStudentRating
+                (selectedStudent.StudentID, selectedTeacher.TeacherID, currentUser.AccessToken));
 
             if (ratingResponseModel.IsSuccess)
             {
-                rateTextBox.Text = ratingResponseModel.Model.ToString();
+                rateComboBox.SelectedIndex = ratingResponseModel.Model;
             }
             else
             {
                 errorMessage += ratingResponseModel.ErrorMessage;
+                CheckResponseError(ratingResponseModel.ErrorAction);                
             }
         }
 
+        public void CheckResponseError(string errorAction)
+        {
+            if (!string.IsNullOrEmpty(errorAction))
+            {
+                switch (errorAction)
+                {
+                    case "[LogOut]":
+                        LogOut();
+                        break;
+
+                    default:
+                        break;
+                }
+            }  
+        }
+
+        private void LogOut()
+        {
+            DialogResult result = MessageBox.Show(errorMessage);
+            errorMessage = string.Empty;
+            if (result == DialogResult.OK)
+            {
+                this.Close();
+            }
+        }
+        
         private void CheckAuthentication()
         {
-            if (currentUser.AccessToken == "")
+            if (string.IsNullOrEmpty(currentUser.AccessToken))
             {
                 MessageBox.Show("Authentication check failed");
                 this.Close();
@@ -181,7 +197,20 @@ namespace Student_UI
 
         private void RateButton_Click(object sender, EventArgs e)
         {
+            int rate = Convert.ToInt16(rateComboBox.SelectedItem);
+                        
+            // todo - student id of the current user (checking through token id -> user id -> student id)
+            ResponseModel<string> rateResponseModel = encryptor.ResponseDeserializer<string>
+            (studentService.RateTeacher(1, selectedTeacher.TeacherID, rate, currentUser.AccessToken));
 
+            if (rateResponseModel.IsSuccess)
+            {
+                MessageBox.Show(rateResponseModel.Model);
+            }
+            else
+            {
+                MessageBox.Show(rateResponseModel.ErrorMessage);
+            }
         }
     }
 }

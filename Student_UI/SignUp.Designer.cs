@@ -112,11 +112,6 @@
             // 
             this.accountTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.accountTypeComboBox.FormattingEnabled = true;
-            this.accountTypeComboBox.Items.AddRange(new object[] {
-            "Parent",
-            "Student",
-            "Teacher",
-            "Principal"});
             this.accountTypeComboBox.Location = new System.Drawing.Point(167, 79);
             this.accountTypeComboBox.Name = "accountTypeComboBox";
             this.accountTypeComboBox.Size = new System.Drawing.Size(168, 29);

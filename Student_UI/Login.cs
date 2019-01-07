@@ -42,12 +42,16 @@ namespace Student_UI
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            string errorMessage = "";
+            string errorMessage = string.Empty;
 
             if (validation.IsTextBoxValid(usernameTextBox.Text, passwordTextBox.Text, ref errorMessage))
             {
+                Encryptor encryptor = new Encryptor();
+
                 StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
-                StudentService.ResponseModelOfUserModelB45gH_Pky userResponseModel = studentService.Login(usernameTextBox.Text, passwordTextBox.Text);
+
+                ResponseModel<UserModel> userResponseModel = encryptor.ResponseDeserializer<UserModel>
+                   (studentService.Login(usernameTextBox.Text, passwordTextBox.Text));
                
                 if (userResponseModel.IsSuccess)
                 {
@@ -79,7 +83,7 @@ namespace Student_UI
         public bool IsCheckConnection()
         {
             StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
-            string message = "";
+            string message = string.Empty;
             try
             {
                 message = studentService.CheckConnection();

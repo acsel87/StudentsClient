@@ -71,6 +71,7 @@
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Encryptor.cs" />
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="Instructions.cs">
       <SubType>Form</SubType>
@@ -85,6 +86,7 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\GradeModel.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -104,15 +106,19 @@
     </Compile>
     <EmbeddedResource Include="ConfirmReset.resx">
       <DependentUpon>ConfirmReset.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Instructions.resx">
       <DependentUpon>Instructions.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -135,15 +141,6 @@
     </None>
     <None Include="Connected Services\StudentService\StudentService1.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\StudentService\StudentService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\StudentService\Student_UI.StudentService.ResponseModelOfstring.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\StudentService\Student_UI.StudentService.ResponseModelOfUserModelB45gH_Pky.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

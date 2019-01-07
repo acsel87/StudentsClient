@@ -1,12 +1,7 @@
 ﻿using Student_UI.Helpers;
+using Student_UI.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Student_UI
@@ -18,17 +13,21 @@ namespace Student_UI
         public SignUp()
         {
             InitializeComponent();
+            GetAccountTypes();
         }
-
+        
         private void CreateAccountButton_Click(object sender, EventArgs e)
         {
-            string errorMessage = "";
+            string errorMessage = string.Empty;
 
             if (validation.IsTextBoxValid(usernameTextBox.Text, passwordTextBox.Text, ref errorMessage) & IsSignUpValid(ref errorMessage))
             {
+                Encryptor encryptor = new Encryptor();
+
                 StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
-                StudentService.ResponseModelOfstring responseModel = new StudentService.ResponseModelOfstring();
-                responseModel = studentService.SignUp(usernameTextBox.Text, passwordTextBox.Text, accountTypeComboBox.SelectedItem.ToString());
+
+                ResponseModel<string> responseModel = encryptor.ResponseDeserializer<string>
+                    (studentService.SignUp(usernameTextBox.Text, passwordTextBox.Text, Convert.ToInt16(accountTypeComboBox.SelectedValue)));
 
                 if (responseModel.IsSuccess)
                 {
@@ -48,6 +47,28 @@ namespace Student_UI
             {
                 MessageBox.Show(errorMessage);
             }
+        }
+
+        private void GetAccountTypes()
+        {
+            Encryptor encryptor = new Encryptor();
+
+            StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
+
+            ResponseModel<List<KeyValuePair<int, string>>> responseModel = encryptor.ResponseDeserializer<List<KeyValuePair<int, string>>>
+                (studentService.GetAccountTypes());
+
+            if (responseModel.IsSuccess)
+            {
+                accountTypeComboBox.ValueMember = "Key";
+                accountTypeComboBox.DisplayMember = "Value";
+                accountTypeComboBox.DataSource = responseModel.Model;
+            }
+            else
+            {
+                MessageBox.Show(responseModel.ErrorMessage);
+            }
+            
         }
 
         private bool IsSignUpValid(ref string errorMessage)

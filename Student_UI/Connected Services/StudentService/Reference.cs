@@ -9,224 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Student_UI.StudentService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseModelOfstring", Namespace="http://schemas.datacontract.org/2004/07/Student.Models")]
-    [System.SerializableAttribute()]
-    public partial class ResponseModelOfstring : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ErrorMessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsSuccessField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ModelField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ErrorMessage {
-            get {
-                return this.ErrorMessageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ErrorMessageField, value) != true)) {
-                    this.ErrorMessageField = value;
-                    this.RaisePropertyChanged("ErrorMessage");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsSuccess {
-            get {
-                return this.IsSuccessField;
-            }
-            set {
-                if ((this.IsSuccessField.Equals(value) != true)) {
-                    this.IsSuccessField = value;
-                    this.RaisePropertyChanged("IsSuccess");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Model {
-            get {
-                return this.ModelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ModelField, value) != true)) {
-                    this.ModelField = value;
-                    this.RaisePropertyChanged("Model");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseModelOfUserModelB45gH_Pky", Namespace="http://schemas.datacontract.org/2004/07/Student.Models")]
-    [System.SerializableAttribute()]
-    public partial class ResponseModelOfUserModelB45gH_Pky : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ErrorMessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsSuccessField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Student_UI.StudentService.UserModel ModelField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ErrorMessage {
-            get {
-                return this.ErrorMessageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ErrorMessageField, value) != true)) {
-                    this.ErrorMessageField = value;
-                    this.RaisePropertyChanged("ErrorMessage");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsSuccess {
-            get {
-                return this.IsSuccessField;
-            }
-            set {
-                if ((this.IsSuccessField.Equals(value) != true)) {
-                    this.IsSuccessField = value;
-                    this.RaisePropertyChanged("IsSuccess");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Student_UI.StudentService.UserModel Model {
-            get {
-                return this.ModelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ModelField, value) != true)) {
-                    this.ModelField = value;
-                    this.RaisePropertyChanged("Model");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserModel", Namespace="http://schemas.datacontract.org/2004/07/Student.Models")]
-    [System.SerializableAttribute()]
-    public partial class UserModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AccessTokenField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsernameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AccessToken {
-            get {
-                return this.AccessTokenField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AccessTokenField, value) != true)) {
-                    this.AccessTokenField = value;
-                    this.RaisePropertyChanged("AccessToken");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username {
-            get {
-                return this.UsernameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
-                    this.UsernameField = value;
-                    this.RaisePropertyChanged("Username");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StudentService.IStudentService")]
@@ -238,17 +21,23 @@ namespace Student_UI.StudentService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/CheckConnection", ReplyAction="http://tempuri.org/IStudentService/CheckConnectionResponse")]
         System.Threading.Tasks.Task<string> CheckConnectionAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/SignUp", ReplyAction="http://tempuri.org/IStudentService/SignUpResponse")]
-        Student_UI.StudentService.ResponseModelOfstring SignUp(string username, string password, string accountType);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetAccountTypes", ReplyAction="http://tempuri.org/IStudentService/GetAccountTypesResponse")]
+        string GetAccountTypes();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetAccountTypes", ReplyAction="http://tempuri.org/IStudentService/GetAccountTypesResponse")]
+        System.Threading.Tasks.Task<string> GetAccountTypesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/SignUp", ReplyAction="http://tempuri.org/IStudentService/SignUpResponse")]
-        System.Threading.Tasks.Task<Student_UI.StudentService.ResponseModelOfstring> SignUpAsync(string username, string password, string accountType);
+        string SignUp(string username, string password, int accountTypeID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/SignUp", ReplyAction="http://tempuri.org/IStudentService/SignUpResponse")]
+        System.Threading.Tasks.Task<string> SignUpAsync(string username, string password, int accountTypeID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/Login", ReplyAction="http://tempuri.org/IStudentService/LoginResponse")]
-        Student_UI.StudentService.ResponseModelOfUserModelB45gH_Pky Login(string username, string password);
+        string Login(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/Login", ReplyAction="http://tempuri.org/IStudentService/LoginResponse")]
-        System.Threading.Tasks.Task<Student_UI.StudentService.ResponseModelOfUserModelB45gH_Pky> LoginAsync(string username, string password);
+        System.Threading.Tasks.Task<string> LoginAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ResetPassword", ReplyAction="http://tempuri.org/IStudentService/ResetPasswordResponse")]
         string ResetPassword();
@@ -257,28 +46,34 @@ namespace Student_UI.StudentService {
         System.Threading.Tasks.Task<string> ResetPasswordAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudents", ReplyAction="http://tempuri.org/IStudentService/GetStudentsResponse")]
-        string GetStudents();
+        string GetStudents(string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudents", ReplyAction="http://tempuri.org/IStudentService/GetStudentsResponse")]
-        System.Threading.Tasks.Task<string> GetStudentsAsync();
+        System.Threading.Tasks.Task<string> GetStudentsAsync(string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetTeachers", ReplyAction="http://tempuri.org/IStudentService/GetTeachersResponse")]
-        string GetTeachers();
+        string GetTeachers(string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetTeachers", ReplyAction="http://tempuri.org/IStudentService/GetTeachersResponse")]
-        System.Threading.Tasks.Task<string> GetTeachersAsync();
+        System.Threading.Tasks.Task<string> GetTeachersAsync(string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetGrades", ReplyAction="http://tempuri.org/IStudentService/GetGradesResponse")]
-        string GetGrades(int studentID, int teacherID);
+        string GetGrades(int studentID, int teacherID, string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetGrades", ReplyAction="http://tempuri.org/IStudentService/GetGradesResponse")]
-        System.Threading.Tasks.Task<string> GetGradesAsync(int studentID, int teacherID);
+        System.Threading.Tasks.Task<string> GetGradesAsync(int studentID, int teacherID, string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudentRating", ReplyAction="http://tempuri.org/IStudentService/GetStudentRatingResponse")]
-        string GetStudentRating(int studentID, int teacherID);
+        string GetStudentRating(int studentID, int teacherID, string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudentRating", ReplyAction="http://tempuri.org/IStudentService/GetStudentRatingResponse")]
-        System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID);
+        System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID, string accessToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/RateTeacher", ReplyAction="http://tempuri.org/IStudentService/RateTeacherResponse")]
+        string RateTeacher(int studentID, int teacherID, int rate, string accessToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/RateTeacher", ReplyAction="http://tempuri.org/IStudentService/RateTeacherResponse")]
+        System.Threading.Tasks.Task<string> RateTeacherAsync(int studentID, int teacherID, int rate, string accessToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -316,19 +111,27 @@ namespace Student_UI.StudentService {
             return base.Channel.CheckConnectionAsync();
         }
         
-        public Student_UI.StudentService.ResponseModelOfstring SignUp(string username, string password, string accountType) {
-            return base.Channel.SignUp(username, password, accountType);
+        public string GetAccountTypes() {
+            return base.Channel.GetAccountTypes();
         }
         
-        public System.Threading.Tasks.Task<Student_UI.StudentService.ResponseModelOfstring> SignUpAsync(string username, string password, string accountType) {
-            return base.Channel.SignUpAsync(username, password, accountType);
+        public System.Threading.Tasks.Task<string> GetAccountTypesAsync() {
+            return base.Channel.GetAccountTypesAsync();
         }
         
-        public Student_UI.StudentService.ResponseModelOfUserModelB45gH_Pky Login(string username, string password) {
+        public string SignUp(string username, string password, int accountTypeID) {
+            return base.Channel.SignUp(username, password, accountTypeID);
+        }
+        
+        public System.Threading.Tasks.Task<string> SignUpAsync(string username, string password, int accountTypeID) {
+            return base.Channel.SignUpAsync(username, password, accountTypeID);
+        }
+        
+        public string Login(string username, string password) {
             return base.Channel.Login(username, password);
         }
         
-        public System.Threading.Tasks.Task<Student_UI.StudentService.ResponseModelOfUserModelB45gH_Pky> LoginAsync(string username, string password) {
+        public System.Threading.Tasks.Task<string> LoginAsync(string username, string password) {
             return base.Channel.LoginAsync(username, password);
         }
         
@@ -340,36 +143,44 @@ namespace Student_UI.StudentService {
             return base.Channel.ResetPasswordAsync();
         }
         
-        public string GetStudents() {
-            return base.Channel.GetStudents();
+        public string GetStudents(string accessToken) {
+            return base.Channel.GetStudents(accessToken);
         }
         
-        public System.Threading.Tasks.Task<string> GetStudentsAsync() {
-            return base.Channel.GetStudentsAsync();
+        public System.Threading.Tasks.Task<string> GetStudentsAsync(string accessToken) {
+            return base.Channel.GetStudentsAsync(accessToken);
         }
         
-        public string GetTeachers() {
-            return base.Channel.GetTeachers();
+        public string GetTeachers(string accessToken) {
+            return base.Channel.GetTeachers(accessToken);
         }
         
-        public System.Threading.Tasks.Task<string> GetTeachersAsync() {
-            return base.Channel.GetTeachersAsync();
+        public System.Threading.Tasks.Task<string> GetTeachersAsync(string accessToken) {
+            return base.Channel.GetTeachersAsync(accessToken);
         }
         
-        public string GetGrades(int studentID, int teacherID) {
-            return base.Channel.GetGrades(studentID, teacherID);
+        public string GetGrades(int studentID, int teacherID, string accessToken) {
+            return base.Channel.GetGrades(studentID, teacherID, accessToken);
         }
         
-        public System.Threading.Tasks.Task<string> GetGradesAsync(int studentID, int teacherID) {
-            return base.Channel.GetGradesAsync(studentID, teacherID);
+        public System.Threading.Tasks.Task<string> GetGradesAsync(int studentID, int teacherID, string accessToken) {
+            return base.Channel.GetGradesAsync(studentID, teacherID, accessToken);
         }
         
-        public string GetStudentRating(int studentID, int teacherID) {
-            return base.Channel.GetStudentRating(studentID, teacherID);
+        public string GetStudentRating(int studentID, int teacherID, string accessToken) {
+            return base.Channel.GetStudentRating(studentID, teacherID, accessToken);
         }
         
-        public System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID) {
-            return base.Channel.GetStudentRatingAsync(studentID, teacherID);
+        public System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID, string accessToken) {
+            return base.Channel.GetStudentRatingAsync(studentID, teacherID, accessToken);
+        }
+        
+        public string RateTeacher(int studentID, int teacherID, int rate, string accessToken) {
+            return base.Channel.RateTeacher(studentID, teacherID, rate, accessToken);
+        }
+        
+        public System.Threading.Tasks.Task<string> RateTeacherAsync(int studentID, int teacherID, int rate, string accessToken) {
+            return base.Channel.RateTeacherAsync(studentID, teacherID, rate, accessToken);
         }
     }
 }
