@@ -9,7 +9,134 @@
 //------------------------------------------------------------------------------
 
 namespace Student_UI.StudentService {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GradeModel", Namespace="http://schemas.datacontract.org/2004/07/Student.Models")]
+    [System.SerializableAttribute()]
+    public partial class GradeModel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GradeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime GradeDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int GradeIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GradeNotesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TeacherIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Grade {
+            get {
+                return this.GradeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GradeField, value) != true)) {
+                    this.GradeField = value;
+                    this.RaisePropertyChanged("Grade");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime GradeDate {
+            get {
+                return this.GradeDateField;
+            }
+            set {
+                if ((this.GradeDateField.Equals(value) != true)) {
+                    this.GradeDateField = value;
+                    this.RaisePropertyChanged("GradeDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int GradeID {
+            get {
+                return this.GradeIDField;
+            }
+            set {
+                if ((this.GradeIDField.Equals(value) != true)) {
+                    this.GradeIDField = value;
+                    this.RaisePropertyChanged("GradeID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GradeNotes {
+            get {
+                return this.GradeNotesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GradeNotesField, value) != true)) {
+                    this.GradeNotesField = value;
+                    this.RaisePropertyChanged("GradeNotes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentID {
+            get {
+                return this.StudentIDField;
+            }
+            set {
+                if ((this.StudentIDField.Equals(value) != true)) {
+                    this.StudentIDField = value;
+                    this.RaisePropertyChanged("StudentID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherID {
+            get {
+                return this.TeacherIDField;
+            }
+            set {
+                if ((this.TeacherIDField.Equals(value) != true)) {
+                    this.TeacherIDField = value;
+                    this.RaisePropertyChanged("TeacherID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StudentService.IStudentService")]
@@ -70,10 +197,16 @@ namespace Student_UI.StudentService {
         System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID, string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/RateTeacher", ReplyAction="http://tempuri.org/IStudentService/RateTeacherResponse")]
-        string RateTeacher(int studentID, int teacherID, int rate, string accessToken);
+        string RateTeacher(int teacherID, int rate, string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/RateTeacher", ReplyAction="http://tempuri.org/IStudentService/RateTeacherResponse")]
-        System.Threading.Tasks.Task<string> RateTeacherAsync(int studentID, int teacherID, int rate, string accessToken);
+        System.Threading.Tasks.Task<string> RateTeacherAsync(int teacherID, int rate, string accessToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ModifyGrades", ReplyAction="http://tempuri.org/IStudentService/ModifyGradesResponse")]
+        string ModifyGrades(bool isNewGrade, Student_UI.StudentService.GradeModel gradeModel, string accessToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ModifyGrades", ReplyAction="http://tempuri.org/IStudentService/ModifyGradesResponse")]
+        System.Threading.Tasks.Task<string> ModifyGradesAsync(bool isNewGrade, Student_UI.StudentService.GradeModel gradeModel, string accessToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -175,12 +308,20 @@ namespace Student_UI.StudentService {
             return base.Channel.GetStudentRatingAsync(studentID, teacherID, accessToken);
         }
         
-        public string RateTeacher(int studentID, int teacherID, int rate, string accessToken) {
-            return base.Channel.RateTeacher(studentID, teacherID, rate, accessToken);
+        public string RateTeacher(int teacherID, int rate, string accessToken) {
+            return base.Channel.RateTeacher(teacherID, rate, accessToken);
         }
         
-        public System.Threading.Tasks.Task<string> RateTeacherAsync(int studentID, int teacherID, int rate, string accessToken) {
-            return base.Channel.RateTeacherAsync(studentID, teacherID, rate, accessToken);
+        public System.Threading.Tasks.Task<string> RateTeacherAsync(int teacherID, int rate, string accessToken) {
+            return base.Channel.RateTeacherAsync(teacherID, rate, accessToken);
+        }
+        
+        public string ModifyGrades(bool isNewGrade, Student_UI.StudentService.GradeModel gradeModel, string accessToken) {
+            return base.Channel.ModifyGrades(isNewGrade, gradeModel, accessToken);
+        }
+        
+        public System.Threading.Tasks.Task<string> ModifyGradesAsync(bool isNewGrade, Student_UI.StudentService.GradeModel gradeModel, string accessToken) {
+            return base.Channel.ModifyGradesAsync(isNewGrade, gradeModel, accessToken);
         }
     }
 }

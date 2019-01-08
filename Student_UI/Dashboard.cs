@@ -24,6 +24,8 @@ namespace Student_UI
         private StudentModel selectedStudent = new StudentModel();
         private TeacherModel selectedTeacher = new TeacherModel();
 
+        private Dictionary<string, int> grades = new Dictionary<string, int>();        
+
         private string errorMessage = string.Empty;
 
         public Dashboard(UserModel userModel)
@@ -38,9 +40,7 @@ namespace Student_UI
             userLabel.Text = currentUser.Username;
             InitialBindings();
         }
-
         
-
         private void InitialBindings()
         {
             ResponseModel<List<StudentModel>> studentsResponseModel = encryptor.ResponseDeserializer<List<StudentModel>>
@@ -55,6 +55,13 @@ namespace Student_UI
             teacherComboBox.DisplayMember = "Class";
 
             gradeDataGridView.AutoGenerateColumns = false;
+
+            grades.Add("A", 0);
+            grades.Add("B", 1);
+            grades.Add("C", 2);
+            grades.Add("D", 3);
+            grades.Add("E", 4);
+            grades.Add("F", 5);
 
             if (teachersResponseModel.IsSuccess && studentsResponseModel.IsSuccess)
             {
@@ -197,11 +204,10 @@ namespace Student_UI
 
         private void RateButton_Click(object sender, EventArgs e)
         {
-            int rate = Convert.ToInt16(rateComboBox.SelectedItem);
-                        
-            // todo - student id of the current user (checking through token id -> user id -> student id)
+            int rate = Convert.ToInt16(rateComboBox.SelectedItem);                        
+            
             ResponseModel<string> rateResponseModel = encryptor.ResponseDeserializer<string>
-            (studentService.RateTeacher(1, selectedTeacher.TeacherID, rate, currentUser.AccessToken));
+            (studentService.RateTeacher(selectedTeacher.TeacherID, rate, currentUser.AccessToken));
 
             if (rateResponseModel.IsSuccess)
             {
@@ -211,6 +217,112 @@ namespace Student_UI
             {
                 MessageBox.Show(rateResponseModel.ErrorMessage);
             }
+        }
+
+        private void GradeNotesTextBox_Enter(object sender, EventArgs e)
+        {
+            if (gradeNotesTextBox.Text.Equals("Add notes"))
+            {
+                gradeNotesTextBox.Text = string.Empty;
+            }
+
+            gradeNotesTextBox.Font = this.Font;
+            gradeNotesTextBox.ForeColor = Color.Black;
+        }
+
+        private void GradeNotesTextBox_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(gradeNotesTextBox.Text))
+            {
+                gradeNotesTextBox.Text = "Add notes";
+                gradeNotesTextBox.Font = new Font(this.Font, FontStyle.Italic);
+                gradeNotesTextBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void EditGradeButton_Click(object sender, EventArgs e)
+        {
+            ShowGradePanel(false);
+        }
+
+        private void AddGradeButton_Click(object sender, EventArgs e)
+        {
+            ShowGradePanel(true);
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            editGradeButton.Visible = true;
+            addGradeButton.Visible = true;
+            gradePanel.Visible = false;
+        }
+
+        private void ApplyButton_Click(object sender, EventArgs e)
+        {
+            bool isNewGrade = applyButton.Tag.Equals("Add");
+
+            List<GradeModel> currentGrades = gradeDataGridView.DataSource as List<GradeModel>;
+            int rowindex = gradeDataGridView.SelectedRows[0].Index;
+            GradeModel selectedGrade = currentGrades[rowindex];
+
+            StudentService.GradeModel gradeModel = new StudentService.GradeModel()
+            {
+                GradeID = selectedGrade.GradeID,
+                StudentID = selectedGrade.StudentID,
+                TeacherID = selectedGrade.TeacherID,
+                Grade = gradeComboBox.SelectedItem.ToString(),
+                // assign GradeDate in api
+                GradeNotes = gradeNotesTextBox.Text
+            };
+
+            ResponseModel<string> gradeResponseModel = encryptor.ResponseDeserializer<string>
+                (studentService.ModifyGrades(isNewGrade, gradeModel, currentUser.AccessToken));
+
+            if (!gradeResponseModel.IsSuccess)
+            {
+                errorMessage += gradeResponseModel.ErrorMessage;
+            }
+
+            RefreshGrades();
+
+            editGradeButton.Visible = true;
+            addGradeButton.Visible = true;
+            gradePanel.Visible = false;
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                MessageBox.Show(errorMessage);
+                errorMessage = string.Empty;
+            }
+        }
+
+        private void ShowGradePanel(bool newGrade)
+        {
+            if (gradeDataGridView.SelectedRows.Count == 1)
+            {
+                if (newGrade)
+                {
+                    applyButton.Tag = "Add";
+
+                    gradeNotesTextBox.Text = "Add notes";
+                    gradeNotesTextBox.Font = new Font(this.Font, FontStyle.Italic);
+                    gradeNotesTextBox.ForeColor = Color.Gray;
+                    gradeComboBox.SelectedIndex = 0;
+                }
+                else
+                {
+                    applyButton.Tag = "Edit";
+                    gradeNotesTextBox.Font = this.Font;
+                    gradeNotesTextBox.ForeColor = Color.Black;
+
+                    gradeNotesTextBox.Text = gradeDataGridView.SelectedCells[2].Value.ToString();
+                    gradeComboBox.SelectedIndex = grades[gradeDataGridView.SelectedCells[0].Value.ToString()];
+                }
+
+                gradePanel.Visible = true;
+                editGradeButton.Visible = false;
+                addGradeButton.Visible = false;
+            }            
         }
     }
 }

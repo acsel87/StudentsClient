@@ -52,7 +52,13 @@
             this.rateButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.rateComboBox = new System.Windows.Forms.ComboBox();
+            this.gradePanel = new System.Windows.Forms.Panel();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.gradeNotesTextBox = new System.Windows.Forms.TextBox();
+            this.applyButton = new System.Windows.Forms.Button();
+            this.gradeComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gradeDataGridView)).BeginInit();
+            this.gradePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -122,9 +128,9 @@
             this.userLabel.Location = new System.Drawing.Point(784, 566);
             this.userLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(84, 21);
+            this.userLabel.Size = new System.Drawing.Size(36, 21);
             this.userLabel.TabIndex = 14;
-            this.userLabel.Text = "Alex Andru";
+            this.userLabel.Text = "alex";
             // 
             // label4
             // 
@@ -168,6 +174,11 @@
             // 
             // gradeDataGridView
             // 
+            this.gradeDataGridView.AllowUserToAddRows = false;
+            this.gradeDataGridView.AllowUserToDeleteRows = false;
+            this.gradeDataGridView.AllowUserToOrderColumns = true;
+            this.gradeDataGridView.AllowUserToResizeColumns = false;
+            this.gradeDataGridView.AllowUserToResizeRows = false;
             this.gradeDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -194,26 +205,27 @@
             this.gradeDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.gradeDataGridView.RowHeadersVisible = false;
             this.gradeDataGridView.RowHeadersWidth = 40;
+            this.gradeDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gradeDataGridView.Size = new System.Drawing.Size(590, 292);
             this.gradeDataGridView.TabIndex = 20;
             // 
             // Grade
             // 
-            this.Grade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Grade.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             this.Grade.DefaultCellStyle = dataGridViewCellStyle1;
             this.Grade.FillWeight = 114.2132F;
             this.Grade.HeaderText = "Grade";
-            this.Grade.MaxInputLength = 2;
+            this.Grade.MaxInputLength = 1;
             this.Grade.MinimumWidth = 50;
             this.Grade.Name = "Grade";
             this.Grade.ReadOnly = true;
             this.Grade.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Grade.Width = 193;
+            this.Grade.Width = 76;
             // 
             // Date
             // 
-            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle2.Format = "g";
             dataGridViewCellStyle2.NullValue = null;
@@ -224,7 +236,6 @@
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
             this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Date.Width = 194;
             // 
             // Notes
             // 
@@ -239,24 +250,26 @@
             // addGradeButton
             // 
             this.addGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.addGradeButton.Location = new System.Drawing.Point(259, 462);
+            this.addGradeButton.Location = new System.Drawing.Point(735, 105);
             this.addGradeButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.addGradeButton.Name = "addGradeButton";
             this.addGradeButton.Size = new System.Drawing.Size(114, 37);
             this.addGradeButton.TabIndex = 21;
             this.addGradeButton.Text = "Add Grade";
             this.addGradeButton.UseVisualStyleBackColor = true;
+            this.addGradeButton.Click += new System.EventHandler(this.AddGradeButton_Click);
             // 
             // editGradeButton
             // 
             this.editGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.editGradeButton.Location = new System.Drawing.Point(735, 462);
+            this.editGradeButton.Location = new System.Drawing.Point(602, 105);
             this.editGradeButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.editGradeButton.Name = "editGradeButton";
             this.editGradeButton.Size = new System.Drawing.Size(114, 37);
             this.editGradeButton.TabIndex = 22;
             this.editGradeButton.Text = "Edit Grade";
             this.editGradeButton.UseVisualStyleBackColor = true;
+            this.editGradeButton.Click += new System.EventHandler(this.EditGradeButton_Click);
             // 
             // rateButton
             // 
@@ -302,11 +315,84 @@
             this.rateComboBox.Sorted = true;
             this.rateComboBox.TabIndex = 27;
             // 
+            // gradePanel
+            // 
+            this.gradePanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.gradePanel.Controls.Add(this.cancelButton);
+            this.gradePanel.Controls.Add(this.gradeNotesTextBox);
+            this.gradePanel.Controls.Add(this.applyButton);
+            this.gradePanel.Controls.Add(this.gradeComboBox);
+            this.gradePanel.Location = new System.Drawing.Point(259, 449);
+            this.gradePanel.Name = "gradePanel";
+            this.gradePanel.Size = new System.Drawing.Size(590, 99);
+            this.gradePanel.TabIndex = 28;
+            this.gradePanel.Visible = false;
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cancelButton.Location = new System.Drawing.Point(8, 9);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(70, 30);
+            this.cancelButton.TabIndex = 30;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // gradeNotesTextBox
+            // 
+            this.gradeNotesTextBox.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gradeNotesTextBox.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.gradeNotesTextBox.Location = new System.Drawing.Point(151, 8);
+            this.gradeNotesTextBox.Multiline = true;
+            this.gradeNotesTextBox.Name = "gradeNotesTextBox";
+            this.gradeNotesTextBox.Size = new System.Drawing.Size(356, 79);
+            this.gradeNotesTextBox.TabIndex = 30;
+            this.gradeNotesTextBox.Text = "Add notes";
+            this.gradeNotesTextBox.Enter += new System.EventHandler(this.GradeNotesTextBox_Enter);
+            this.gradeNotesTextBox.Leave += new System.EventHandler(this.GradeNotesTextBox_Leave);
+            // 
+            // applyButton
+            // 
+            this.applyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.applyButton.Location = new System.Drawing.Point(513, 9);
+            this.applyButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.applyButton.Name = "applyButton";
+            this.applyButton.Size = new System.Drawing.Size(70, 30);
+            this.applyButton.TabIndex = 29;
+            this.applyButton.Text = "Apply";
+            this.applyButton.UseVisualStyleBackColor = true;
+            this.applyButton.Click += new System.EventHandler(this.ApplyButton_Click);
+            // 
+            // gradeComboBox
+            // 
+            this.gradeComboBox.DropDownHeight = 80;
+            this.gradeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.gradeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.gradeComboBox.Font = new System.Drawing.Font("Segoe UI Light", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gradeComboBox.FormatString = "N0";
+            this.gradeComboBox.FormattingEnabled = true;
+            this.gradeComboBox.IntegralHeight = false;
+            this.gradeComboBox.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"});
+            this.gradeComboBox.Location = new System.Drawing.Point(93, 8);
+            this.gradeComboBox.Name = "gradeComboBox";
+            this.gradeComboBox.Size = new System.Drawing.Size(45, 33);
+            this.gradeComboBox.Sorted = true;
+            this.gradeComboBox.TabIndex = 29;
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 601);
+            this.Controls.Add(this.gradePanel);
             this.Controls.Add(this.rateComboBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.rateButton);
@@ -333,6 +419,8 @@
             this.Text = "Student Dashboard";
             this.Load += new System.EventHandler(this.Dashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gradeDataGridView)).EndInit();
+            this.gradePanel.ResumeLayout(false);
+            this.gradePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,10 +443,15 @@
         private System.Windows.Forms.Button editGradeButton;
         private System.Windows.Forms.Button rateButton;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox rateComboBox;
+        private System.Windows.Forms.Panel gradePanel;
+        private System.Windows.Forms.TextBox gradeNotesTextBox;
+        private System.Windows.Forms.ComboBox gradeComboBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn Grade;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Notes;
-        private System.Windows.Forms.ComboBox rateComboBox;
+        private System.Windows.Forms.Button applyButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }
 
