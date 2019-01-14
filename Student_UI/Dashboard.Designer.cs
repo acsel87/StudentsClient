@@ -57,6 +57,7 @@
             this.gradeNotesTextBox = new System.Windows.Forms.TextBox();
             this.applyButton = new System.Windows.Forms.Button();
             this.gradeComboBox = new System.Windows.Forms.ComboBox();
+            this.logOutButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gradeDataGridView)).BeginInit();
             this.gradePanel.SuspendLayout();
             this.SuspendLayout();
@@ -387,11 +388,22 @@
             this.gradeComboBox.Sorted = true;
             this.gradeComboBox.TabIndex = 29;
             // 
+            // logOutButton
+            // 
+            this.logOutButton.Location = new System.Drawing.Point(22, 557);
+            this.logOutButton.Name = "logOutButton";
+            this.logOutButton.Size = new System.Drawing.Size(75, 30);
+            this.logOutButton.TabIndex = 29;
+            this.logOutButton.Text = "Log Out";
+            this.logOutButton.UseVisualStyleBackColor = true;
+            this.logOutButton.Click += new System.EventHandler(this.LogOutButton_Click);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 601);
+            this.Controls.Add(this.logOutButton);
             this.Controls.Add(this.gradePanel);
             this.Controls.Add(this.rateComboBox);
             this.Controls.Add(this.label6);
@@ -452,6 +464,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Notes;
         private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button logOutButton;
     }
 }
 

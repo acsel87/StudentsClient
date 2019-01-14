@@ -37,13 +37,13 @@
             this.instructionsTextBox.Location = new System.Drawing.Point(25, 21);
             this.instructionsTextBox.Multiline = true;
             this.instructionsTextBox.Name = "instructionsTextBox";
+            this.instructionsTextBox.ReadOnly = true;
             this.instructionsTextBox.Size = new System.Drawing.Size(734, 519);
             this.instructionsTextBox.TabIndex = 0;
             this.instructionsTextBox.Text = "Empty";
             // 
             // linkButton
             // 
-            this.linkButton.Enabled = false;
             this.linkButton.Location = new System.Drawing.Point(362, 365);
             this.linkButton.Name = "linkButton";
             this.linkButton.Size = new System.Drawing.Size(60, 30);
@@ -51,6 +51,7 @@
             this.linkButton.Text = "Link";
             this.linkButton.UseVisualStyleBackColor = true;
             this.linkButton.Visible = false;
+            this.linkButton.Click += new System.EventHandler(this.LinkButton_Click);
             // 
             // Instructions
             // 
@@ -61,6 +62,7 @@
             this.Controls.Add(this.instructionsTextBox);
             this.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "Instructions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Instructions";

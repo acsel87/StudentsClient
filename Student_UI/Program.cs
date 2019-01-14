@@ -16,7 +16,7 @@ namespace Student_UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
             Login login = new Login();
             if (login.IsCheckConnection())
             {                
@@ -24,8 +24,14 @@ namespace Student_UI
             }            
 
             if (login.isAuthenticated)
-            {                
-                Application.Run(new Dashboard(login.userModel));                
+            {
+                Dashboard dashboard = new Dashboard(login.userModel);
+                Application.Run(dashboard);
+                                
+                if (dashboard.IsDisposed && dashboard.loggedOut)
+                {
+                    Application.Restart();
+                }
             }
         }
     }

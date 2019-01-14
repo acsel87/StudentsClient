@@ -37,6 +37,18 @@
   <wsdl:message name="IStudentService_ResetPassword_OutputMessage">
     <wsdl:part name="parameters" element="tns:ResetPasswordResponse" />
   </wsdl:message>
+  <wsdl:message name="IStudentService_ActivateLink_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActivateLink" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_ActivateLink_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActivateLinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_ConfirmReset_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmReset" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_ConfirmReset_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmResetResponse" />
+  </wsdl:message>
   <wsdl:message name="IStudentService_GetStudents_InputMessage">
     <wsdl:part name="parameters" element="tns:GetStudents" />
   </wsdl:message>
@@ -93,6 +105,14 @@
     <wsdl:operation name="ResetPassword">
       <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/ResetPassword" message="tns:IStudentService_ResetPassword_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/ResetPasswordResponse" message="tns:IStudentService_ResetPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActivateLink">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/ActivateLink" message="tns:IStudentService_ActivateLink_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/ActivateLinkResponse" message="tns:IStudentService_ActivateLink_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmReset">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/ConfirmReset" message="tns:IStudentService_ConfirmReset_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/ConfirmResetResponse" message="tns:IStudentService_ConfirmReset_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetStudents">
       <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/GetStudents" message="tns:IStudentService_GetStudents_InputMessage" />
@@ -159,6 +179,24 @@
     </wsdl:operation>
     <wsdl:operation name="ResetPassword">
       <soap:operation soapAction="http://tempuri.org/IStudentService/ResetPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivateLink">
+      <soap:operation soapAction="http://tempuri.org/IStudentService/ActivateLink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmReset">
+      <soap:operation soapAction="http://tempuri.org/IStudentService/ConfirmReset" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

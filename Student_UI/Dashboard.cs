@@ -16,6 +16,7 @@ namespace Student_UI
     // todo - check iis/api connection
     public partial class Dashboard : Form
     {
+        public bool loggedOut = false;
         private StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
         private Validation validation = new Validation();
         private Encryptor encryptor = new Encryptor();
@@ -43,16 +44,29 @@ namespace Student_UI
         
         private void InitialBindings()
         {
-            ResponseModel<List<StudentModel>> studentsResponseModel = encryptor.ResponseDeserializer<List<StudentModel>>
+            ResponseModel<List<StudentModel>> studentsResponseModel = new ResponseModel<List<StudentModel>>();
+            ResponseModel<List<TeacherModel>> teachersResponseModel = new ResponseModel<List<TeacherModel>>();
+           
+            try
+            {
+                studentsResponseModel = encryptor.ResponseDeserializer<List<StudentModel>>
                 (studentService.GetStudents(currentUser.AccessToken));
-            ResponseModel<List<TeacherModel>> teachersResponseModel = encryptor.ResponseDeserializer<List<TeacherModel>>
+
+                teachersResponseModel = encryptor.ResponseDeserializer<List<TeacherModel>>
                 (studentService.GetTeachers(currentUser.AccessToken));
-
-            studentComboBox.ValueMember = "StudentID";
-            studentComboBox.DisplayMember = "StudentName";
-
-            teacherComboBox.ValueMember = "TeacherID";
-            teacherComboBox.DisplayMember = "Class";
+            }
+            catch (TimeoutException)
+            {
+                {
+                    errorMessage = "Request timed out";
+                }
+            }
+            catch (System.ServiceModel.FaultException)
+            {
+                {
+                    errorMessage = "Service down";
+                }
+            }
 
             gradeDataGridView.AutoGenerateColumns = false;
 
@@ -67,15 +81,17 @@ namespace Student_UI
             {
                 teacherComboBox.DataSource = teachersResponseModel.Model;
                 studentComboBox.DataSource = studentsResponseModel.Model;
+
+                studentComboBox.ValueMember = "StudentID";
+                studentComboBox.DisplayMember = "StudentName";
+
+                teacherComboBox.ValueMember = "TeacherID";
+                teacherComboBox.DisplayMember = "Class";
             }
             else
             {
                 errorMessage += teachersResponseModel.ErrorMessage + "\n";
                 errorMessage += studentsResponseModel.ErrorMessage;
-            }
-
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
                 LogOut();
             }
         }
@@ -88,11 +104,7 @@ namespace Student_UI
                 RefreshStudentInfo();
             }
 
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                MessageBox.Show(errorMessage);
-                errorMessage = string.Empty;
-            }
+            ShowError();
         }
 
         private void TeacherComboBox_SelectedValueChanged(object sender, EventArgs e)
@@ -103,11 +115,7 @@ namespace Student_UI
                 RefreshTeacherInfo();
             }
 
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                MessageBox.Show(errorMessage);
-                errorMessage = string.Empty;
-            }
+            ShowError();
         }
 
         private void RefreshStudentInfo()
@@ -130,15 +138,40 @@ namespace Student_UI
             {
                 RefreshGrades();
             }
+        }        
+
+        private ResponseModel<T> CheckResponse<T>()
+        {
+            try
+            {
+                return new ResponseModel<T>(); // todo - dynamic method to send request
+            }
+            catch (TimeoutException)
+            {
+                {
+                    return new ResponseModel<T> { ErrorMessage = "Request timed out" };
+                }
+            }
         }
 
         private void RefreshGrades()
         {
-            ResponseModel<List<GradeModel>> gradesResponseModel = encryptor.ResponseDeserializer<List<GradeModel>>
+            ResponseModel<List<GradeModel>> gradesResponseModel = new ResponseModel<List<GradeModel>>();
+
+            try
+            {
+                gradesResponseModel = encryptor.ResponseDeserializer<List<GradeModel>>
                 (studentService.GetGrades(selectedStudent.StudentID, selectedTeacher.TeacherID, currentUser.AccessToken));
+            }
+            catch (TimeoutException)
+            {
+                {
+                    gradesResponseModel.ErrorMessage = "Request timed out";
+                }
+            }
 
             if (gradesResponseModel.IsSuccess)
-            {
+            {  
                 gradeDataGridView.Columns[0].DataPropertyName = "Grade";
                 gradeDataGridView.Columns[1].DataPropertyName = "GradeDate";
                 gradeDataGridView.Columns[2].DataPropertyName = "GradeNotes";
@@ -146,15 +179,27 @@ namespace Student_UI
             }
             else
             {
-                errorMessage += gradesResponseModel.ErrorMessage;
+                errorMessage += gradesResponseModel.ErrorMessage + "\n";
                 CheckResponseError(gradesResponseModel.ErrorAction);                
             }
         }
 
+        // todo - get rating of current user if a student NOT from selected student
         private void GetStudentRating()
         {
-            ResponseModel<int> ratingResponseModel = encryptor.ResponseDeserializer<int>(studentService.GetStudentRating
-                (selectedStudent.StudentID, selectedTeacher.TeacherID, currentUser.AccessToken));
+            ResponseModel<int> ratingResponseModel = new ResponseModel<int>(); 
+
+            try
+            {
+                ratingResponseModel = encryptor.ResponseDeserializer<int>
+                (studentService.GetStudentRating(selectedStudent.StudentID, selectedTeacher.TeacherID, currentUser.AccessToken));
+            }
+            catch (TimeoutException)
+            {
+                {
+                    ratingResponseModel.ErrorMessage = "Request timed out";
+                }
+            }
 
             if (ratingResponseModel.IsSuccess)
             {
@@ -162,12 +207,12 @@ namespace Student_UI
             }
             else
             {
-                errorMessage += ratingResponseModel.ErrorMessage;
+                errorMessage += ratingResponseModel.ErrorMessage + "\n";
                 CheckResponseError(ratingResponseModel.ErrorAction);                
             }
         }
 
-        public void CheckResponseError(string errorAction)
+        private void CheckResponseError(string errorAction)
         {
             if (!string.IsNullOrEmpty(errorAction))
             {
@@ -183,12 +228,22 @@ namespace Student_UI
             }  
         }
 
+        private void ShowError()
+        {
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                MessageBox.Show(errorMessage);
+                errorMessage = string.Empty;
+            }
+        }
+
         private void LogOut()
         {
             DialogResult result = MessageBox.Show(errorMessage);
             errorMessage = string.Empty;
             if (result == DialogResult.OK)
             {
+                loggedOut = true;
                 this.Close();
             }
         }
@@ -204,10 +259,21 @@ namespace Student_UI
 
         private void RateButton_Click(object sender, EventArgs e)
         {
-            int rate = Convert.ToInt16(rateComboBox.SelectedItem);                        
-            
-            ResponseModel<string> rateResponseModel = encryptor.ResponseDeserializer<string>
-            (studentService.RateTeacher(selectedTeacher.TeacherID, rate, currentUser.AccessToken));
+            int rate = Convert.ToInt16(rateComboBox.SelectedItem);
+
+            ResponseModel<string> rateResponseModel = new ResponseModel<string>(); 
+
+            try
+            {
+                rateResponseModel = encryptor.ResponseDeserializer<string>
+                (studentService.RateTeacher(selectedTeacher.TeacherID, rate, currentUser.AccessToken));
+            }
+            catch (TimeoutException)
+            {
+                {
+                    rateResponseModel.ErrorMessage = "Request timed out";
+                }
+            }
 
             if (rateResponseModel.IsSuccess)
             {
@@ -215,7 +281,9 @@ namespace Student_UI
             }
             else
             {
-                MessageBox.Show(rateResponseModel.ErrorMessage);
+                errorMessage = rateResponseModel.ErrorMessage + "\n";
+                CheckResponseError(rateResponseModel.ErrorAction);
+                ShowError();
             }
         }
 
@@ -262,25 +330,40 @@ namespace Student_UI
             bool isNewGrade = applyButton.Tag.Equals("Add");
 
             List<GradeModel> currentGrades = gradeDataGridView.DataSource as List<GradeModel>;
-            int rowindex = gradeDataGridView.SelectedRows[0].Index;
-            GradeModel selectedGrade = currentGrades[rowindex];
 
-            StudentService.GradeModel gradeModel = new StudentService.GradeModel()
+            StudentService.GradeModel gradeModel = new StudentService.GradeModel
             {
-                GradeID = selectedGrade.GradeID,
-                StudentID = selectedGrade.StudentID,
-                TeacherID = selectedGrade.TeacherID,
-                Grade = gradeComboBox.SelectedItem.ToString(),
-                // assign GradeDate in api
-                GradeNotes = gradeNotesTextBox.Text
+                StudentID = selectedStudent.StudentID,
+                TeacherID = selectedTeacher.TeacherID
             };
 
-            ResponseModel<string> gradeResponseModel = encryptor.ResponseDeserializer<string>
+            if (gradeDataGridView.SelectedRows.Count == 1)
+            {
+                int rowindex = gradeDataGridView.SelectedRows[0].Index;
+                GradeModel selectedGrade = currentGrades[rowindex];
+                gradeModel.GradeID = selectedGrade.GradeID;
+                gradeModel.Grade = selectedGrade.Grade;
+                gradeModel.GradeNotes = gradeNotesTextBox.Text;
+            }
+
+            ResponseModel<string> gradeResponseModel = new ResponseModel<string>(); 
+
+            try
+            {
+                gradeResponseModel = encryptor.ResponseDeserializer<string>
                 (studentService.ModifyGrades(isNewGrade, gradeModel, currentUser.AccessToken));
+            }
+            catch (TimeoutException)
+            {
+                {
+                    gradeResponseModel.ErrorMessage = "Request timed out";
+                }
+            }
 
             if (!gradeResponseModel.IsSuccess)
             {
-                errorMessage += gradeResponseModel.ErrorMessage;
+                errorMessage += gradeResponseModel.ErrorMessage + "\n";
+                CheckResponseError(gradeResponseModel.ErrorAction);
             }
 
             RefreshGrades();
@@ -289,40 +372,47 @@ namespace Student_UI
             addGradeButton.Visible = true;
             gradePanel.Visible = false;
 
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                MessageBox.Show(errorMessage);
-                errorMessage = string.Empty;
-            }
+            ShowError();
         }
 
         private void ShowGradePanel(bool newGrade)
-        {
-            if (gradeDataGridView.SelectedRows.Count == 1)
+        {            
+            if (newGrade)
             {
-                if (newGrade)
-                {
-                    applyButton.Tag = "Add";
+                applyButton.Tag = "Add";
 
-                    gradeNotesTextBox.Text = "Add notes";
-                    gradeNotesTextBox.Font = new Font(this.Font, FontStyle.Italic);
-                    gradeNotesTextBox.ForeColor = Color.Gray;
-                    gradeComboBox.SelectedIndex = 0;
-                }
-                else
-                {
-                    applyButton.Tag = "Edit";
+                gradeNotesTextBox.Text = "Add notes";
+                gradeNotesTextBox.Font = new Font(this.Font, FontStyle.Italic);
+                gradeNotesTextBox.ForeColor = Color.Gray;
+                gradeComboBox.SelectedIndex = 0;
+
+                gradePanel.Visible = true;
+                editGradeButton.Visible = false;
+                addGradeButton.Visible = false;
+            }
+            else
+            {
+                applyButton.Tag = "Edit";
+
+                if (gradeDataGridView.SelectedRows.Count == 1)
+                {                   
                     gradeNotesTextBox.Font = this.Font;
                     gradeNotesTextBox.ForeColor = Color.Black;
 
                     gradeNotesTextBox.Text = gradeDataGridView.SelectedCells[2].Value.ToString();
                     gradeComboBox.SelectedIndex = grades[gradeDataGridView.SelectedCells[0].Value.ToString()];
-                }
 
-                gradePanel.Visible = true;
-                editGradeButton.Visible = false;
-                addGradeButton.Visible = false;
-            }            
+                    gradePanel.Visible = true;
+                    editGradeButton.Visible = false;
+                    addGradeButton.Visible = false;
+                }
+            }              
+        }
+
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            errorMessage = "Logging out...";
+            LogOut();
         }
     }
 }

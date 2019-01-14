@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.newPassLabel = new System.Windows.Forms.Label();
+            this.confirmPassLabel = new System.Windows.Forms.Label();
             this.resetButton = new System.Windows.Forms.Button();
             this.newPasswordTextBox = new System.Windows.Forms.TextBox();
             this.confirmPasswordTextBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.passwordResetLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // newPassLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "New Password:";
+            this.newPassLabel.AutoSize = true;
+            this.newPassLabel.Location = new System.Drawing.Point(27, 24);
+            this.newPassLabel.Name = "newPassLabel";
+            this.newPassLabel.Size = new System.Drawing.Size(110, 21);
+            this.newPassLabel.TabIndex = 0;
+            this.newPassLabel.Text = "New Password:";
             // 
-            // label2
+            // confirmPassLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 21);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Confirm Password:";
+            this.confirmPassLabel.AutoSize = true;
+            this.confirmPassLabel.Location = new System.Drawing.Point(27, 70);
+            this.confirmPassLabel.Name = "confirmPassLabel";
+            this.confirmPassLabel.Size = new System.Drawing.Size(133, 21);
+            this.confirmPassLabel.TabIndex = 1;
+            this.confirmPassLabel.Text = "Confirm Password:";
             // 
             // resetButton
             // 
@@ -62,6 +62,7 @@
             this.resetButton.TabIndex = 2;
             this.resetButton.Text = "Reset Password";
             this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // newPasswordTextBox
             // 
@@ -69,6 +70,7 @@
             this.newPasswordTextBox.Name = "newPasswordTextBox";
             this.newPasswordTextBox.Size = new System.Drawing.Size(300, 29);
             this.newPasswordTextBox.TabIndex = 3;
+            this.newPasswordTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Password_PreviewInput);
             // 
             // confirmPasswordTextBox
             // 
@@ -77,29 +79,35 @@
             this.confirmPasswordTextBox.Size = new System.Drawing.Size(300, 29);
             this.confirmPasswordTextBox.TabIndex = 4;
             // 
-            // label3
+            // passwordResetLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(156, 121);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(173, 21);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Password has been reset";
-            this.label3.Visible = false;
+            this.passwordResetLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.passwordResetLabel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.passwordResetLabel.Location = new System.Drawing.Point(156, 116);
+            this.passwordResetLabel.Name = "passwordResetLabel";
+            this.passwordResetLabel.Size = new System.Drawing.Size(173, 21);
+            this.passwordResetLabel.TabIndex = 5;
+            this.passwordResetLabel.Text = "Password has been reset";
+            this.passwordResetLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.passwordResetLabel.Visible = false;
             // 
             // ConfirmReset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(484, 161);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.passwordResetLabel);
             this.Controls.Add(this.confirmPasswordTextBox);
             this.Controls.Add(this.newPasswordTextBox);
             this.Controls.Add(this.resetButton);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.confirmPassLabel);
+            this.Controls.Add(this.newPassLabel);
             this.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(500, 200);
+            this.MinimumSize = new System.Drawing.Size(500, 100);
             this.Name = "ConfirmReset";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Confirm Password";
@@ -110,11 +118,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label newPassLabel;
+        private System.Windows.Forms.Label confirmPassLabel;
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.TextBox newPasswordTextBox;
         private System.Windows.Forms.TextBox confirmPasswordTextBox;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label passwordResetLabel;
     }
 }

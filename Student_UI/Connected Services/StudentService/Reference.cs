@@ -167,10 +167,22 @@ namespace Student_UI.StudentService {
         System.Threading.Tasks.Task<string> LoginAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ResetPassword", ReplyAction="http://tempuri.org/IStudentService/ResetPasswordResponse")]
-        string ResetPassword();
+        string ResetPassword(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ResetPassword", ReplyAction="http://tempuri.org/IStudentService/ResetPasswordResponse")]
-        System.Threading.Tasks.Task<string> ResetPasswordAsync();
+        System.Threading.Tasks.Task<string> ResetPasswordAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ActivateLink", ReplyAction="http://tempuri.org/IStudentService/ActivateLinkResponse")]
+        string ActivateLink(string username, string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ActivateLink", ReplyAction="http://tempuri.org/IStudentService/ActivateLinkResponse")]
+        System.Threading.Tasks.Task<string> ActivateLinkAsync(string username, string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ConfirmReset", ReplyAction="http://tempuri.org/IStudentService/ConfirmResetResponse")]
+        string ConfirmReset(string userToken, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ConfirmReset", ReplyAction="http://tempuri.org/IStudentService/ConfirmResetResponse")]
+        System.Threading.Tasks.Task<string> ConfirmResetAsync(string userToken, string newPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudents", ReplyAction="http://tempuri.org/IStudentService/GetStudentsResponse")]
         string GetStudents(string accessToken);
@@ -268,12 +280,28 @@ namespace Student_UI.StudentService {
             return base.Channel.LoginAsync(username, password);
         }
         
-        public string ResetPassword() {
-            return base.Channel.ResetPassword();
+        public string ResetPassword(string username) {
+            return base.Channel.ResetPassword(username);
         }
         
-        public System.Threading.Tasks.Task<string> ResetPasswordAsync() {
-            return base.Channel.ResetPasswordAsync();
+        public System.Threading.Tasks.Task<string> ResetPasswordAsync(string username) {
+            return base.Channel.ResetPasswordAsync(username);
+        }
+        
+        public string ActivateLink(string username, string token) {
+            return base.Channel.ActivateLink(username, token);
+        }
+        
+        public System.Threading.Tasks.Task<string> ActivateLinkAsync(string username, string token) {
+            return base.Channel.ActivateLinkAsync(username, token);
+        }
+        
+        public string ConfirmReset(string userToken, string newPassword) {
+            return base.Channel.ConfirmReset(userToken, newPassword);
+        }
+        
+        public System.Threading.Tasks.Task<string> ConfirmResetAsync(string userToken, string newPassword) {
+            return base.Channel.ConfirmResetAsync(userToken, newPassword);
         }
         
         public string GetStudents(string accessToken) {

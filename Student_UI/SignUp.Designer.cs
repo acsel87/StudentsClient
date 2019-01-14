@@ -133,6 +133,9 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(500, 300);
+            this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "SignUp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sign Up";

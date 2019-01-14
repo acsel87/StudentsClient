@@ -1,12 +1,6 @@
 ﻿using Student_UI.Helpers;
+using Student_UI.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Student_UI
@@ -26,7 +20,26 @@ namespace Student_UI
 
             if (validation.IsTextBoxValid(usernameTextBox.Text, null, ref errorMessage))
             {
-                // send instructions
+                Encryptor encryptor = new Encryptor();
+
+                StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
+
+                ResponseModel<string[]> resetPasswordResponseModel = encryptor.ResponseDeserializer<string[]>
+                  (studentService.ResetPassword(usernameTextBox.Text));
+
+                if (resetPasswordResponseModel.IsSuccess)
+                {
+                    Instructions instructionsWindow = new Instructions(resetPasswordResponseModel.Model[0], resetPasswordResponseModel.Model[1]);
+                    instructionsWindow.Show();
+
+                    usernameTextBox.ReadOnly = true;
+                    instructionsLabel.Visible = true;
+                    sendInstructionsButton.Visible = false;
+                }
+                else
+                {
+                    MessageBox.Show(resetPasswordResponseModel.ErrorMessage);
+                }
             }
             else
             {

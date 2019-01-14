@@ -34,10 +34,8 @@ namespace Student_UI
 
         private void ResetPasswordButton_Click(object sender, EventArgs e)
         {
-            using (ResetPassword resetPasswordWindow = new ResetPassword())
-            {
-                resetPasswordWindow.ShowDialog();
-            }
+            ResetPassword resetPasswordWindow = new ResetPassword();            
+            resetPasswordWindow.Show();            
         }
 
         private void LoginButton_Click(object sender, EventArgs e)
