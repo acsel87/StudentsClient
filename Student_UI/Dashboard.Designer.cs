@@ -250,7 +250,7 @@
             // 
             // addGradeButton
             // 
-            this.addGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.addGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.addGradeButton.Location = new System.Drawing.Point(735, 105);
             this.addGradeButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.addGradeButton.Name = "addGradeButton";
@@ -262,7 +262,7 @@
             // 
             // editGradeButton
             // 
-            this.editGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.editGradeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.editGradeButton.Location = new System.Drawing.Point(602, 105);
             this.editGradeButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.editGradeButton.Name = "editGradeButton";
@@ -390,6 +390,7 @@
             // 
             // logOutButton
             // 
+            this.logOutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.logOutButton.Location = new System.Drawing.Point(22, 557);
             this.logOutButton.Name = "logOutButton";
             this.logOutButton.Size = new System.Drawing.Size(75, 30);
@@ -429,7 +430,9 @@
             this.Name = "Dashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Student Dashboard";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Dashboard_FormClosed);
             this.Load += new System.EventHandler(this.Dashboard_Load);
+            this.Shown += new System.EventHandler(this.Dashboard_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.gradeDataGridView)).EndInit();
             this.gradePanel.ResumeLayout(false);
             this.gradePanel.PerformLayout();

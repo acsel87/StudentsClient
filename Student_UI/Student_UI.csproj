@@ -75,6 +75,7 @@
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Encryptor.cs" />
+    <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="Helpers\Validation.cs" />
     <Compile Include="Instructions.cs">
       <SubType>Form</SubType>

@@ -12,15 +12,15 @@ namespace Student_UI
         private const string secretKey = "NdR4Ce6gS7fGrFkPagzFj5gn7qfDRWt25GDspxxCEuTEFtKvW3yJg2xZZkDtyyYDkEPEdFLqRDf4wUkb7tB2cpxyjWD9EVXQhm6ecUxHaAsaWjyJMGKmbJSsBR7EvwrY";
 
         Validation validation = new Validation();
-        string username;
+        string userID;
 
-        public ConfirmReset(string _username)
+        public ConfirmReset(string _userID)
         {
             InitializeComponent();
 
-            if (!string.IsNullOrEmpty(_username))
+            if (!string.IsNullOrEmpty(_userID))
             {
-                username = _username;
+                userID = _userID;
             }
             else
             {
@@ -32,45 +32,17 @@ namespace Student_UI
         {
             string errorMessage = string.Empty;
 
-            if (validation.IsTextBoxValid(username, newPasswordTextBox.Text, ref errorMessage) & IsSignUpValid(ref errorMessage))
+            if (validation.IsTextBoxValid(null, newPasswordTextBox.Text, ref errorMessage) & IsSignUpValid(ref errorMessage))
             {
-                Encryptor encryptor = new Encryptor();
-
-                StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
-
-                string userToken = CreateUserToken();
-
-                ResponseModel<string> confirmResetResponseModel = encryptor.ResponseDeserializer<string>
-                  (studentService.ConfirmReset(userToken, newPasswordTextBox.Text));
-
-                if (confirmResetResponseModel.IsSuccess)
-                {                    
-                    passwordResetLabel.Text = confirmResetResponseModel.Model;
-
-                    passwordResetLabel.Visible = true;
-                    newPasswordTextBox.Enabled = false;
-                    confirmPasswordTextBox.Enabled = false;
-                    resetButton.Visible = false;
-                                       
-                }
-                else
-                {
-                    if ( !string.IsNullOrEmpty(confirmResetResponseModel.ErrorAction) &&
-                        confirmResetResponseModel.ErrorAction.Equals("[LinkExpired]"))
-                    {
-                        ToggleExpired();
-                    }
-                    else
-                    {
-                        MessageBox.Show(confirmResetResponseModel.ErrorMessage);
-                    }
-                }
+                ErrorHelper errorHelper = new ErrorHelper();
+                errorHelper.CheckRequest(ResetPassword, this);
+                errorHelper.ShowError();
             }
             else
             {
                 MessageBox.Show(errorMessage);
             }
-        }
+        }        
 
         public string CreateUserToken()
         {            
@@ -78,9 +50,44 @@ namespace Student_UI
                         .WithAlgorithm(new HMACSHA256Algorithm())
                         .WithUrlEncoder(new JWT.JwtBase64UrlEncoder())
                         .WithSecret(secretKey)
-                        .AddClaim("sub", username)
+                        .AddClaim("sub", userID)
                         .AddClaim("exp", DateTimeOffset.UtcNow.AddMinutes(5).ToUnixTimeSeconds())
                         .Build();
+        }
+
+        private void ResetPassword()
+        {
+            Encryptor encryptor = new Encryptor();
+
+            StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
+
+            string userToken = CreateUserToken();
+
+            ResponseModel<string> confirmResetResponseModel = encryptor.ResponseDeserializer<string>
+              (studentService.ConfirmReset(userToken, newPasswordTextBox.Text));
+
+            if (confirmResetResponseModel.IsSuccess)
+            {
+                passwordResetLabel.Text = confirmResetResponseModel.Model;
+
+                passwordResetLabel.Visible = true;
+                newPasswordTextBox.Enabled = false;
+                confirmPasswordTextBox.Enabled = false;
+                resetButton.Visible = false;
+
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(confirmResetResponseModel.ErrorAction) &&
+                    confirmResetResponseModel.ErrorAction.Equals("[LinkExpired]"))
+                {
+                    ToggleExpired();
+                }
+                else
+                {
+                    MessageBox.Show(confirmResetResponseModel.OutputMessage);
+                }
+            }
         }
 
         private void Password_PreviewInput(object sender, KeyPressEventArgs e)

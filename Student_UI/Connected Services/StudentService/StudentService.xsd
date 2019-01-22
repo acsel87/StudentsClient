@@ -9,7 +9,7 @@
   <xs:element name="CheckConnectionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="CheckConnectionResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CheckConnectionResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -147,7 +147,6 @@
   <xs:element name="GetStudentRating">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="studentID" type="xs:int" />
         <xs:element minOccurs="0" name="teacherID" type="xs:int" />
         <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -189,6 +188,33 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="ModifyGradesResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SignOut">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SignOutResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNewAccessToken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="refreshToken" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="accessToken" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNewAccessTokenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetNewAccessTokenResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

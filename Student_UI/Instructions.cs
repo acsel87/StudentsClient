@@ -38,6 +38,13 @@ namespace Student_UI
 
         private void LinkButton_Click(object sender, EventArgs e)
         {
+            ErrorHelper errorHelper = new ErrorHelper();
+            errorHelper.CheckRequest(ActivateLink, this);
+            errorHelper.ShowError();
+        }
+
+        private void ActivateLink()
+        {
             Encryptor encryptor = new Encryptor();
 
             StudentService.StudentServiceClient studentServiceClient = new StudentService.StudentServiceClient();
@@ -52,7 +59,7 @@ namespace Student_UI
             }
             else
             {
-                MessageBox.Show(linkResponseModel.ErrorMessage);
+                MessageBox.Show(linkResponseModel.OutputMessage);
             }
         }
     }

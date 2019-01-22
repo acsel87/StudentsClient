@@ -15,13 +15,18 @@ namespace Student_UI
     public partial class Login : Form
     {        
         public bool isAuthenticated;
+        public bool isConnected = false;
         public UserModel userModel;
 
-        Validation validation = new Validation();
+        private Validation validation = new Validation();
+        private ErrorHelper errorHelper = new ErrorHelper();        
 
         public Login()
         {
             InitializeComponent();
+            Program.currentForm = this;
+            errorHelper.CheckRequest(SetConnection, this);
+            errorHelper.ShowError();
         }
 
         private void SignUpButton_Click(object sender, EventArgs e)
@@ -40,32 +45,12 @@ namespace Student_UI
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            string errorMessage = string.Empty;
-
-            if (validation.IsTextBoxValid(usernameTextBox.Text, passwordTextBox.Text, ref errorMessage))
+            if (validation.IsTextBoxValid(usernameTextBox.Text, passwordTextBox.Text, ref Program.outputMessage))
             {
-                Encryptor encryptor = new Encryptor();
-
-                StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
-
-                ResponseModel<UserModel> userResponseModel = encryptor.ResponseDeserializer<UserModel>
-                   (studentService.Login(usernameTextBox.Text, passwordTextBox.Text));
-               
-                if (userResponseModel.IsSuccess)
-                {
-                    userModel = new UserModel() { Username = userResponseModel.Model.Username, AccessToken = userResponseModel.Model.AccessToken };
-                    isAuthenticated = true;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show(userResponseModel.ErrorMessage);
-                }                
+                errorHelper.CheckRequest(GetLogin, this);                
             }
-            else
-            {
-                MessageBox.Show(errorMessage);
-            }
+
+            errorHelper.ShowError();
         }
        
         private void Password_PreviewInput(object sender, KeyPressEventArgs e)
@@ -78,21 +63,37 @@ namespace Student_UI
             validation.Username_KeyPress(sender, e);
         }
 
-        public bool IsCheckConnection()
+        private void GetLogin()
+        {
+            Encryptor encryptor = new Encryptor();
+
+            StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
+
+            ResponseModel<UserModel> userResponseModel = encryptor.ResponseDeserializer<UserModel>
+               (studentService.Login(usernameTextBox.Text, passwordTextBox.Text));
+
+            if (userResponseModel.IsSuccess)
+            {
+                userModel = userResponseModel.Model;
+                isAuthenticated = true;
+                this.Close();
+            }
+            else
+            {
+                Program.outputMessage += userResponseModel.OutputMessage;
+            }
+        }
+
+        private void SetConnection()
         {
             StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
-            string message = string.Empty;
-            try
+
+            isConnected = studentService.CheckConnection();
+
+            if (!isConnected)
             {
-                message = studentService.CheckConnection();
-                return true;
-            }
-            catch (System.ServiceModel.EndpointNotFoundException)
-            {
-                MessageBox.Show("Connection to service failed");
                 studentService.Abort();
                 this.Close();
-                return false;
             }
         }
     }

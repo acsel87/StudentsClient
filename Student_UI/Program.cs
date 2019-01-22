@@ -8,6 +8,9 @@ namespace Student_UI
 {
     static class Program
     {
+        public static Form currentForm;
+        public static string outputMessage = string.Empty;        
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,18 +19,18 @@ namespace Student_UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             Login login = new Login();
-            if (login.IsCheckConnection())
-            {                
+            if (login.isConnected)
+            {
                 Application.Run(login);
-            }            
+            }
 
             if (login.isAuthenticated)
             {
                 Dashboard dashboard = new Dashboard(login.userModel);
                 Application.Run(dashboard);
-                                
+
                 if (dashboard.IsDisposed && dashboard.loggedOut)
                 {
                     Application.Restart();

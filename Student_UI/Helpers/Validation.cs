@@ -20,34 +20,37 @@ namespace Student_UI.Helpers
             bool output = true;
             Regex usernameRegex = new Regex(@"^[\w._]*$");
 
-            if (string.IsNullOrEmpty(username))
+            if (username != null)
             {
-                errorMessage += "Please enter username\n";
-                output = false;
-            }
-            else
-            {
-                if (!usernameRegex.IsMatch(username))
+                if (string.IsNullOrEmpty(username))
                 {
-                    errorMessage += "Username can contain only letters, digits, underscore'_' and dot'.'\n";
-                    output = false;
-                }                
-
-                if (!char.IsLetter(username[0]))
-                {
-                    errorMessage += "Username must start with a letter\n";
+                    errorMessage += "Please enter username\n";
                     output = false;
                 }
+                else
+                {
+                    if (!usernameRegex.IsMatch(username))
+                    {
+                        errorMessage += "Username can contain only letters, digits, underscore'_' and dot'.'\n";
+                        output = false;
+                    }
 
-                if (username.Length < usernameMinLength)
-                {
-                    errorMessage += "Username must have at least " + usernameMinLength + " characters\n";
-                    output = false;
-                }
-                else if (username.Length > usernameMaxLength)
-                {
-                    errorMessage += "Username can't have more than " + usernameMaxLength + " characters\n";
-                    output = false;
+                    if (!char.IsLetter(username[0]))
+                    {
+                        errorMessage += "Username must start with a letter\n";
+                        output = false;
+                    }
+
+                    if (username.Length < usernameMinLength)
+                    {
+                        errorMessage += "Username must have at least " + usernameMinLength + " characters\n";
+                        output = false;
+                    }
+                    else if (username.Length > usernameMaxLength)
+                    {
+                        errorMessage += "Username can't have more than " + usernameMaxLength + " characters\n";
+                        output = false;
+                    }
                 }
             }
 

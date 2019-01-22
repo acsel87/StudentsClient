@@ -9,11 +9,13 @@ namespace Student_UI
     public partial class SignUp : Form
     {
         Validation validation = new Validation();
+        private ErrorHelper errorHelper = new ErrorHelper();
 
         public SignUp()
         {
             InitializeComponent();
-            GetAccountTypes();
+            errorHelper.CheckRequest(GetAccountTypes, this);
+            errorHelper.ShowError();
         }
         
         private void CreateAccountButton_Click(object sender, EventArgs e)
@@ -22,30 +24,36 @@ namespace Student_UI
 
             if (validation.IsTextBoxValid(usernameTextBox.Text, passwordTextBox.Text, ref errorMessage) & IsSignUpValid(ref errorMessage))
             {
-                Encryptor encryptor = new Encryptor();
-
-                StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
-
-                ResponseModel<string> responseModel = encryptor.ResponseDeserializer<string>
-                    (studentService.SignUp(usernameTextBox.Text, passwordTextBox.Text, Convert.ToInt16(accountTypeComboBox.SelectedValue)));
-
-                if (responseModel.IsSuccess)
-                {
-                    DialogResult result = MessageBox.Show(responseModel.Model);
-
-                    if (result == DialogResult.OK)
-                    {
-                        this.Close();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(responseModel.ErrorMessage);
-                }                
+                errorHelper.CheckRequest(CreateAccount, this);
+                errorHelper.ShowError();
             }
             else
             {
                 MessageBox.Show(errorMessage);
+            }
+        }
+
+        private void CreateAccount()
+        {
+            Encryptor encryptor = new Encryptor();
+
+            StudentService.StudentServiceClient studentService = new StudentService.StudentServiceClient();
+
+            ResponseModel<string> responseModel = encryptor.ResponseDeserializer<string>
+                (studentService.SignUp(usernameTextBox.Text, passwordTextBox.Text, Convert.ToInt16(accountTypeComboBox.SelectedValue)));
+
+            if (responseModel.IsSuccess)
+            {
+                DialogResult result = MessageBox.Show(responseModel.Model);
+
+                if (result == DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show(responseModel.OutputMessage);
             }
         }
 
@@ -66,9 +74,8 @@ namespace Student_UI
             }
             else
             {
-                MessageBox.Show(responseModel.ErrorMessage);
-            }
-            
+                MessageBox.Show(responseModel.OutputMessage);
+            }            
         }
 
         private bool IsSignUpValid(ref string errorMessage)

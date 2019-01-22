@@ -143,10 +143,10 @@ namespace Student_UI.StudentService {
     public interface IStudentService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/CheckConnection", ReplyAction="http://tempuri.org/IStudentService/CheckConnectionResponse")]
-        string CheckConnection();
+        bool CheckConnection();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/CheckConnection", ReplyAction="http://tempuri.org/IStudentService/CheckConnectionResponse")]
-        System.Threading.Tasks.Task<string> CheckConnectionAsync();
+        System.Threading.Tasks.Task<bool> CheckConnectionAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetAccountTypes", ReplyAction="http://tempuri.org/IStudentService/GetAccountTypesResponse")]
         string GetAccountTypes();
@@ -203,10 +203,10 @@ namespace Student_UI.StudentService {
         System.Threading.Tasks.Task<string> GetGradesAsync(int studentID, int teacherID, string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudentRating", ReplyAction="http://tempuri.org/IStudentService/GetStudentRatingResponse")]
-        string GetStudentRating(int studentID, int teacherID, string accessToken);
+        string GetStudentRating(int teacherID, string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetStudentRating", ReplyAction="http://tempuri.org/IStudentService/GetStudentRatingResponse")]
-        System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID, string accessToken);
+        System.Threading.Tasks.Task<string> GetStudentRatingAsync(int teacherID, string accessToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/RateTeacher", ReplyAction="http://tempuri.org/IStudentService/RateTeacherResponse")]
         string RateTeacher(int teacherID, int rate, string accessToken);
@@ -219,6 +219,18 @@ namespace Student_UI.StudentService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/ModifyGrades", ReplyAction="http://tempuri.org/IStudentService/ModifyGradesResponse")]
         System.Threading.Tasks.Task<string> ModifyGradesAsync(bool isNewGrade, Student_UI.StudentService.GradeModel gradeModel, string accessToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/SignOut", ReplyAction="http://tempuri.org/IStudentService/SignOutResponse")]
+        void SignOut(string accessToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/SignOut", ReplyAction="http://tempuri.org/IStudentService/SignOutResponse")]
+        System.Threading.Tasks.Task SignOutAsync(string accessToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetNewAccessToken", ReplyAction="http://tempuri.org/IStudentService/GetNewAccessTokenResponse")]
+        string GetNewAccessToken(string refreshToken, string accessToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStudentService/GetNewAccessToken", ReplyAction="http://tempuri.org/IStudentService/GetNewAccessTokenResponse")]
+        System.Threading.Tasks.Task<string> GetNewAccessTokenAsync(string refreshToken, string accessToken);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -248,11 +260,11 @@ namespace Student_UI.StudentService {
                 base(binding, remoteAddress) {
         }
         
-        public string CheckConnection() {
+        public bool CheckConnection() {
             return base.Channel.CheckConnection();
         }
         
-        public System.Threading.Tasks.Task<string> CheckConnectionAsync() {
+        public System.Threading.Tasks.Task<bool> CheckConnectionAsync() {
             return base.Channel.CheckConnectionAsync();
         }
         
@@ -328,12 +340,12 @@ namespace Student_UI.StudentService {
             return base.Channel.GetGradesAsync(studentID, teacherID, accessToken);
         }
         
-        public string GetStudentRating(int studentID, int teacherID, string accessToken) {
-            return base.Channel.GetStudentRating(studentID, teacherID, accessToken);
+        public string GetStudentRating(int teacherID, string accessToken) {
+            return base.Channel.GetStudentRating(teacherID, accessToken);
         }
         
-        public System.Threading.Tasks.Task<string> GetStudentRatingAsync(int studentID, int teacherID, string accessToken) {
-            return base.Channel.GetStudentRatingAsync(studentID, teacherID, accessToken);
+        public System.Threading.Tasks.Task<string> GetStudentRatingAsync(int teacherID, string accessToken) {
+            return base.Channel.GetStudentRatingAsync(teacherID, accessToken);
         }
         
         public string RateTeacher(int teacherID, int rate, string accessToken) {
@@ -350,6 +362,22 @@ namespace Student_UI.StudentService {
         
         public System.Threading.Tasks.Task<string> ModifyGradesAsync(bool isNewGrade, Student_UI.StudentService.GradeModel gradeModel, string accessToken) {
             return base.Channel.ModifyGradesAsync(isNewGrade, gradeModel, accessToken);
+        }
+        
+        public void SignOut(string accessToken) {
+            base.Channel.SignOut(accessToken);
+        }
+        
+        public System.Threading.Tasks.Task SignOutAsync(string accessToken) {
+            return base.Channel.SignOutAsync(accessToken);
+        }
+        
+        public string GetNewAccessToken(string refreshToken, string accessToken) {
+            return base.Channel.GetNewAccessToken(refreshToken, accessToken);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetNewAccessTokenAsync(string refreshToken, string accessToken) {
+            return base.Channel.GetNewAccessTokenAsync(refreshToken, accessToken);
         }
     }
 }

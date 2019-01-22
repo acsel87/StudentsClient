@@ -85,6 +85,18 @@
   <wsdl:message name="IStudentService_ModifyGrades_OutputMessage">
     <wsdl:part name="parameters" element="tns:ModifyGradesResponse" />
   </wsdl:message>
+  <wsdl:message name="IStudentService_SignOut_InputMessage">
+    <wsdl:part name="parameters" element="tns:SignOut" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_SignOut_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SignOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetNewAccessToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewAccessToken" />
+  </wsdl:message>
+  <wsdl:message name="IStudentService_GetNewAccessToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewAccessTokenResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStudentService">
     <wsdl:operation name="CheckConnection">
       <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/CheckConnection" message="tns:IStudentService_CheckConnection_InputMessage" />
@@ -137,6 +149,14 @@
     <wsdl:operation name="ModifyGrades">
       <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/ModifyGrades" message="tns:IStudentService_ModifyGrades_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/ModifyGradesResponse" message="tns:IStudentService_ModifyGrades_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SignOut">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/SignOut" message="tns:IStudentService_SignOut_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/SignOutResponse" message="tns:IStudentService_SignOut_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewAccessToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStudentService/GetNewAccessToken" message="tns:IStudentService_GetNewAccessToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStudentService/GetNewAccessTokenResponse" message="tns:IStudentService_GetNewAccessToken_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStudentService" type="tns:IStudentService">
@@ -251,6 +271,24 @@
     </wsdl:operation>
     <wsdl:operation name="ModifyGrades">
       <soap:operation soapAction="http://tempuri.org/IStudentService/ModifyGrades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SignOut">
+      <soap:operation soapAction="http://tempuri.org/IStudentService/SignOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewAccessToken">
+      <soap:operation soapAction="http://tempuri.org/IStudentService/GetNewAccessToken" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
